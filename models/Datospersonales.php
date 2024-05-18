@@ -10,6 +10,7 @@ use Yii;
  * @property int $ID
  * @property string $nombre
  * @property string $telefono
+ * @property string|null $rol
  * @property int $fk_user
  *
  * @property User $fkUser
@@ -34,6 +35,7 @@ class Datospersonales extends \yii\db\ActiveRecord
             [['fk_user'], 'integer'],
             [['nombre'], 'string', 'max' => 90],
             [['telefono'], 'string', 'max' => 10],
+            [['rol'], 'string', 'max' => 60],
             [['fk_user'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fk_user' => 'id']],
         ];
     }
@@ -47,6 +49,7 @@ class Datospersonales extends \yii\db\ActiveRecord
             'ID' => 'ID',
             'nombre' => 'Nombre',
             'telefono' => 'Telefono',
+            'rol' => 'Rol',
             'fk_user' => 'Fk User',
         ];
     }

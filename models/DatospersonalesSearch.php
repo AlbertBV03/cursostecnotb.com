@@ -18,7 +18,7 @@ class DatospersonalesSearch extends Datospersonales
     {
         return [
             [['ID', 'fk_user'], 'integer'],
-            [['nombre', 'telefono'], 'safe'],
+            [['nombre', 'telefono', 'rol'], 'safe'],
         ];
     }
 
@@ -63,7 +63,8 @@ class DatospersonalesSearch extends Datospersonales
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre])
-            ->andFilterWhere(['like', 'telefono', $this->telefono]);
+            ->andFilterWhere(['like', 'telefono', $this->telefono])
+            ->andFilterWhere(['like', 'rol', $this->rol]);
 
         return $dataProvider;
     }
