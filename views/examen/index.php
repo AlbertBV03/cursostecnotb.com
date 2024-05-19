@@ -40,7 +40,7 @@ $this->params['breadcrumbs'][] = $this->title;
             $gridColumns = [
                 [
                     'attribute' => 'nombre',
-                    'header' => 'Nombre:',
+                    'header' => 'Nombre',
                     'vAlign' => 'middle',
                     'format'=>'raw',
                 ],
