@@ -160,7 +160,44 @@ use webvimark\modules\UserManagement\models\User;
                   </ul>
                   </li>
                   <?php endif;?>
-                    
+
+                  <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')): ?>
+                    <!--li class="section-title">
+                    Aplicaciones
+                    </li-->
+                    <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#manual"
+                      aria-expanded="false" aria-controls="manual">
+                      <i class="mdi mdi-image-filter-none"></i>
+                      <span class="nav-text">Manuales</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="manual"
+                      data-parent="#sidebar-menu">
+                      <div class="sub-menu">
+                  <li
+                   >
+                    <a class="sidenav-item-link" href="/manual/index">
+                      <i class="mdi mdi-file-document-box"></i>
+                      <span class="nav-text">Todos los manuales</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="sidenav-item-link" href="/cursomanual/index">
+                      <i class="mdi mdi-folder-account"></i>
+                      <span class="nav-text">Curos con manuales</span>
+                    </a>
+                  </li>
+                  <li
+                   >
+                    <a class="sidenav-item-link" href="/manualdetalle/index">
+                      <i class="mdi mdi-book-open-variant"></i>
+                      <span class="nav-text">Hojas de los manuales</span>
+                    </a>
+                  </li>
+                  </div>
+                  </ul>
+                  </li>
+                  <?php endif;?>
 
                   <?php if(User::hasRole('superadmin') || User::hasRole('Administrador')): ?>
                 
