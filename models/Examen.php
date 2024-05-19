@@ -47,8 +47,8 @@ class Examen extends \yii\db\ActiveRecord
         return [
             'ID' => 'ID',
             'nombre' => 'Nombre',
-            'status' => 'Status',
-            'fk_curso' => 'Fk Curso',
+            'status' => 'Estado',
+            'fk_curso' => 'Curso',
         ];
     }
 
