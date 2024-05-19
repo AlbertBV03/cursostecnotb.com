@@ -47,8 +47,8 @@ class Datospersonales extends \yii\db\ActiveRecord
     {
         return [
             'ID' => 'ID',
-            'nombre' => 'Nombre',
-            'telefono' => 'Telefono',
+            'nombre' => 'Nombre Completo',
+            'telefono' => 'Teléfono',
             'rol' => 'Rol',
             'fk_user' => 'Fk User',
         ];
