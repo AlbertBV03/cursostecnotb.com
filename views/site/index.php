@@ -13,7 +13,7 @@ use webvimark\modules\UserManagement\models\User;
 /** @var app\models\ActividadesSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Agenda de Actividades Pendientes';
+$this->title = 'Bienvenido a cursotecnotb';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container-fluid">
@@ -25,26 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="actividades-index">
                     <div class="card-body">
-
-                            <p>
-                            <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')):
-
-                                            echo Html::button('<i class="fa fa-plus"></i>', 
-                                            ['value'=>Url::to(['actividades/consultar']),
-                                                            'class' => 'btn btn-outline-primary btn-sm','id'=>'modalButton']); 
-                                    endif; ?>
-                            </p>
-                            <?php
-                                Modal::begin([
-                                    'title' =>'<h4>Consultar mes</h4>',
-                                    'id'     =>'movi-modal',
-                                    'size'   =>'modal-lg',
-                                    'clientOptions' => ['backdrop' => 'static', 'keyboard' => FALSE]
-                                    ]);
-                                    echo "<div id='movi-modalContent'> </div>";
-                                Modal::end();
-                            ?>
-
+                        
                     </div>
                 </div>
             </div>

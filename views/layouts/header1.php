@@ -35,22 +35,44 @@ use webvimark\modules\UserManagement\models\User;
                   <li>
                     <a class="sidenav-item-link" href="/actividades/mis-actividades">
                     <i class="mdi mdi-calendar-check"></i>
-                      <span class="nav-text">Mis actividades</span>
+                      <span class="nav-text">Mis cursos</span>
                     </a>
                   </li>
                   <li>
                     <a class="sidenav-item-link" href="/actividades/pendientes">
                     <i class="mdi mdi-calendar-check"></i>
-                      <span class="nav-text">Actividades pendientes</span>
+                      <span class="nav-text">Mis diplomas</span>
+                    </a>
+                  </li>
+                  </li>
+                  </div>
+                  </ul>
+                  <li>
+                  
+                    <li class="section-title">
+                    Explorar
+                  </li>
+                    <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#informes"
+                      aria-expanded="false" aria-controls="informes">
+                      <i class="mdi mdi-image-filter-none"></i>
+                      <span class="nav-text">Cursos</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="informes"
+                      data-parent="#sidebar-menu">
+                      <div class="sub-menu">
+                    <li>
+                    <a class="sidenav-item-link" href="/site/listmes">
+                      <i class="mdi mdi-chart-line"></i>
+                      <span class="nav-text">Más cursos</span>
                     </a>
                   </li>
                   <li>
-                    <a class="sidenav-item-link" href="/bitacora/mis-bitacoras">
-                    <i class="mdi mdi-calendar-check"></i>
-                      <span class="nav-text">Mis bitácoras</span>
+                    <a class="sidenav-item-link" href="/site/listbitacoras">
+                      <i class="mdi mdi-chart-line"></i>
+                      <span class="nav-text">Futuras convocatorias</span>
                     </a>
-                  </li>
-                  </li>
+                    </li>
                   </div>
                   </ul>
                   <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')): ?>
@@ -61,39 +83,28 @@ use webvimark\modules\UserManagement\models\User;
                     </a>
                   </li> -->
                   <li>
-                  <?php if(User::hasRole('superadmin') || User::hasRole('Administrador')){ ?>
-                    <a class="sidenav-item-link" href="/departamento/departamentos">
-                  <?php }elseif(User::hasRole('Coordinador')){?>
-                    <a class="sidenav-item-link" href="/departamento/mi-departamento">
-                  <?php }?>
-
-                      <i class="fa-solid fa-clipboard-list"></i>
-                      <span class="nav-text">Actividad departamento</span>
-                    </a>
-                  </li>
-                  
                     <li class="section-title">
-                    Aplicaciones
+                    Gestión de cursos
                   </li>
                     <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#informes"
-                      aria-expanded="false" aria-controls="informes">
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#gestion"
+                      aria-expanded="false" aria-controls="gestion">
                       <i class="mdi mdi-image-filter-none"></i>
-                      <span class="nav-text">Informes</span> <b class="caret"></b>
+                      <span class="nav-text">Cursos</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse"  id="informes"
+                    <ul  class="collapse"  id="gestion"
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
                     <li>
-                    <a class="sidenav-item-link" href="/site/listmes">
+                    <a class="sidenav-item-link" href="/curso/index">
                       <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Ver informe actividad</span>
+                      <span class="nav-text">Cursos</span>
                     </a>
                   </li>
                   <li>
                     <a class="sidenav-item-link" href="/site/listbitacoras">
                       <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Ver informe rubrica</span>
+                      <span class="nav-text">Proximamente</span>
                     </a>
                     </li>
                   </div>
