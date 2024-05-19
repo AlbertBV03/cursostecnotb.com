@@ -324,14 +324,14 @@
                           <span class="nav-text">Activitise</span></a>
                       </li-->
                       <li>
-                        <a class="dropdown-link-item" href="/user-management/user/update?id=<?php echo(Yii::$app->user->identity->ID);?>">
+                        <a class="dropdown-link-item" href="/perfil/index">
                           <i class="mdi mdi-settings"></i>
-                          <span class="nav-text">Account Setting</span>
+                          <span class="nav-text">Perfil</span>
                         </a>
                       </li>
 
                       <li class="dropdown-footer">
-                        <a class="dropdown-link-item" href="/user-management/auth/logout"> <i class="mdi mdi-logout"></i> Log Out </a>
+                        <a class="dropdown-link-item" href="/user-management/auth/logout"> <i class="mdi mdi-logout"></i> Cerrar Sesión </a>
                       </li>
                     </ul>
                   </li>

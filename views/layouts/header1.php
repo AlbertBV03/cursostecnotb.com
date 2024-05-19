@@ -8,7 +8,7 @@ use webvimark\modules\UserManagement\models\User;
           <div id="sidebar" class="sidebar sidebar-with-footer">
             <!-- Aplication Brand -->
             <div class="app-brand">
-              <a href="/index.html">
+              <a href="/site/index">
                 <img src="/images/sgm.jpg" alt="SOGEMEX" height="50" width="">
                 <!-- <span class="brand-name">SOGEMEX</span>-->
               </a>
