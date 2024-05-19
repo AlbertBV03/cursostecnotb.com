@@ -169,7 +169,7 @@ use webvimark\modules\UserManagement\models\User;
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#manual"
                       aria-expanded="false" aria-controls="manual">
                       <i class="mdi mdi-image-filter-none"></i>
-                      <span class="nav-text">Manual</span> <b class="caret"></b>
+                      <span class="nav-text">Manuales</span> <b class="caret"></b>
                     </a>
                     <ul  class="collapse"  id="manual"
                       data-parent="#sidebar-menu">
