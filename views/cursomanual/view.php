@@ -30,8 +30,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'ID',
-            'fk_curso',
-            'fk_manual',
+            [
+                'attribute' => 'fk_curso',
+                'value' => function($model) {
+                    return $model->fkCurso ? $model->fkCurso->nombre : null; // Asume que la columna de nombre en Curso es 'nombre'
+                },
+                'label' => 'Nombre del Curso',
+            ],
+            [
+                'attribute' => 'fk_manual',
+                'value' => function($model) {
+                    return $model->fkManual ? $model->fkManual->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
+                },
+                'label' => 'Nombre del Manual',
+            ],
+            //'fk_curso',
+            //'fk_manual',
         ],
     ]) ?>
 

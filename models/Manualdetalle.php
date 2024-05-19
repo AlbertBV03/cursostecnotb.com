@@ -31,7 +31,6 @@ class Manualdetalle extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID'], 'required'],
             [['ID', 'fk_manual', 'status'], 'integer'],
             [['titulo', 'contenido'], 'string'],
             [['ID'], 'unique'],

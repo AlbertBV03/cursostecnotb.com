@@ -29,9 +29,23 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'ID',
-            'fk_curso',
-            'fk_manual',
+            //'ID',
+            //'fk_curso',
+            [
+                'attribute' => 'fk_curso',
+                'value' => function($model) {
+                    return $model->fkCurso ? $model->fkCurso->nombre : null; // Asume que la columna de nombre en Curso es 'nombre'
+                },
+                'label' => 'Nombre del Curso',
+            ],
+            //'fk_manual',
+            [
+                'attribute' => 'fk_manual',
+                'value' => function($model) {
+                    return $model->fkManual ? $model->fkManual->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
+                },
+                'label' => 'Nombre del Manual',
+            ],
             [
                 'class' => ActionColumn::className(),
                 'urlCreator' => function ($action, Cursomanual $model, $key, $index, $column) {

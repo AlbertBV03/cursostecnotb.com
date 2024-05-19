@@ -30,7 +30,6 @@ class Cursomanual extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID'], 'required'],
             [['ID', 'fk_curso', 'fk_manual'], 'integer'],
             [['ID'], 'unique'],
             [['fk_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::class, 'targetAttribute' => ['fk_curso' => 'ID']],

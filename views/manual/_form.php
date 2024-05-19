@@ -15,6 +15,12 @@ use yii\widgets\ActiveForm;
 
     <!-- <=?= $form->field($model, 'ID')->textInput() ?> -->
 
+    <!-- <=?= $form->field($model, 'nombre')->widget(Summernote::class, [
+    'useKrajeePresets' => true,
+    // other widget settings
+    ]);
+    ?> -->
+
     <?= $form->field($model, 'nombre')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>

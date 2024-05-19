@@ -1,5 +1,6 @@
 <?php
 
+use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -34,8 +35,24 @@ $this->params['breadcrumbs'][] = $this->title;
             'descripcion:ntext',
             'requisitos:ntext',
             'objetivo:ntext',
-            'imagen',
-            'status',
+            [
+                'attribute' => 'imagen',
+                'format' => 'html',
+                'value' => function ($model) {
+                    return Html::img(Url::to('@web/' . $model->imagen), ['width' => '100']);
+                },
+            ],
+            // 'imagen',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $colorClass = $model->status == 1 ? 'badge-success' : 'badge-danger';
+                    $statusText = $model->status == 1 ? 'Activo' : 'Inactivo';
+                    return '<span class="badge ' . $colorClass . '">' . $statusText . '</span>';
+                },
+            ],
+            //'status',
         ],
     ]) ?>
 

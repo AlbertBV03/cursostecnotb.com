@@ -30,10 +30,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             'ID',
-            'fk_manual',
+            [
+                'attribute' => 'fk_manual',
+                'value' => function($model) {
+                    return $model->fkManual ? $model->fkManual->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
+                },
+                'label' => 'Nombre del Manual',
+            ],
             'titulo:ntext',
             'contenido:ntext',
-            'status',
+            [
+                'attribute' => 'status',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    $colorClass = $model->status == 1 ? 'badge-success' : 'badge-danger';
+                    $statusText = $model->status == 1 ? 'Activo' : 'Inactivo';
+                    return '<span class="badge ' . $colorClass . '">' . $statusText . '</span>';
+                },
+            ],
+            //'status',
         ],
     ]) ?>
 
