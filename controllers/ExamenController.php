@@ -2,11 +2,14 @@
 
 namespace app\controllers;
 
+use Yii;
 use app\models\Examen;
-use app\models\ExamenSearch;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Pregunta;
 use yii\filters\VerbFilter;
+use app\models\ExamenSearch;
+use app\models\PreguntaSearch;
+use yii\web\NotFoundHttpException;
 
 /**
  * ExamenController implements the CRUD actions for Examen model.
@@ -114,6 +117,17 @@ class ExamenController extends Controller
         $this->findModel($ID)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionPreguntas($ID)
+    {
+        $examen = Examen::find()->where(['ID' => $ID])->one();
+        $model = Pregunta::find()->where(['fk_examen' => $ID])->all();
+
+        return $this->render('preguntas', [
+            'examen' => $examen,
+            'model' => $model,
+        ]);
     }
 
     /**

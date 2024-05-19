@@ -14,7 +14,7 @@ use Yii;
  * @property int $fk_examen
  *
  * @property Examan $fkExamen
- * @property Respuestum[] $respuesta0
+ * @property Respuesta[] $respuesta0
  */
 class Pregunta extends \yii\db\ActiveRecord
 {
@@ -48,8 +48,8 @@ class Pregunta extends \yii\db\ActiveRecord
             'ID' => 'ID',
             'contenido' => 'Contenido',
             'respuesta' => 'Respuesta',
-            'status' => 'Status',
-            'fk_examen' => 'Fk Examen',
+            'status' => 'Estado',
+            'fk_examen' => 'Examen',
         ];
     }
 
@@ -68,8 +68,8 @@ class Pregunta extends \yii\db\ActiveRecord
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getRespuesta0()
+    public function getRespuesta()
     {
-        return $this->hasMany(Respuestum::class, ['fk_pregunta' => 'ID']);
+        return $this->hasMany(Respuesta::class, ['fk_pregunta' => 'ID']);
     }
 }
