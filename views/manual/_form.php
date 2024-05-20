@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
+use kartik\editors\Summernote;
 
 /** @var yii\web\View $this */
 /** @var app\models\Manual $model */
@@ -11,40 +12,75 @@ use yii\widgets\ActiveForm;
 
 <div class="manual-form">
 
+    <style>
+        .manual-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        /* Remover margenes y padding extras de Summernote */
+        .manual-form .field-manual-nombre,
+        .manual-form .field-manual-descripcion,
+        .manual-form .field-manual-requisitos,
+        .manual-form .field-manual-objetivo {
+            margin-bottom: 350px;
+        }
+    </style>
+
     <?php $form = ActiveForm::begin(); ?>
 
-    <!-- <=?= $form->field($model, 'ID')->textInput() ?> -->
+    <!-- <#?= $form->field($model, 'ID')->textInput() ?> -->
 
-    <!-- <=?= $form->field($model, 'nombre')->widget(Summernote::class, [
-    'useKrajeePresets' => true,
-    // other widget settings
-    ]);
-    ?> -->
+    <div class="form-group field-manual-nombre">
+        <?= $form->field($model, 'nombre')->widget(Summernote::class, [
+            'useKrajeePresets' => true,
+            // other widget settings
+        ]); ?>
+    </div>
 
-    <?= $form->field($model, 'nombre')->textarea(['rows' => 6]) ?>
+    <div class="form-group field-manual-descripcion">
+        <?= $form->field($model, 'descripcion')->widget(Summernote::class, [
+            'useKrajeePresets' => true,
+            // other widget settings
+        ]); ?>
+    </div>
 
-    <?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?>
+    <div class="form-group field-manual-requisitos">
+        <?= $form->field($model, 'requisitos')->widget(Summernote::class, [
+            'useKrajeePresets' => true,
+            // other widget settings
+        ]); ?>
+    </div>
 
-    <?= $form->field($model, 'requisitos')->textarea(['rows' => 6]) ?>
+    <div class="form-group field-manual-objetivo">
+        <?= $form->field($model, 'objetivo')->widget(Summernote::class, [
+            'useKrajeePresets' => true,
+            // other widget settings
+        ]); ?>
+    </div>
 
-    <?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?>
+    <div class="form-group field-manual-imagen">
+        <?= $form->field($model, 'imagen')->fileInput(['class' => 'form-control', 'id' => 'formFile']) ?>
+    </div>
 
-    <?= $form->field($model, 'imagen')->fileInput(['class' => 'form-control', 'id' => 'formFile']) ?>
+    <div class="form-group field-manual-status">
+        <?= $form->field($model, 'status')->widget(Select2::classname(), [
+            'data' => [
+                '1' => 'Activo',
+                '2' => 'Inactivo',
+            ],
+            'options' => ['placeholder' => 'Selecciona un estado ...'],
+            'pluginOptions' => [
+                'allowClear' => true,
+            ],
+        ]); ?>
+    </div>
 
+    <!-- <#?= $form->field($model, 'nombre')->textarea(['rows' => 6]) ?> -->
+    <!-- <#?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?> -->
+    <!-- <#?= $form->field($model, 'requisitos')->textarea(['rows' => 6]) ?> -->
+    <!-- <#?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?> -->
     <!-- <#?= $form->field($model, 'imagen')->textInput() ?> -->
-
-    <?= $form->field($model, 'status')->widget(Select2::classname(), [
-        'data' => [
-            '1' => 'Activo',
-            '2' => 'Inactivo',
-        ],
-        'options' => ['placeholder' => 'Selecciona un estado ...'],
-        'pluginOptions' => [
-            'allowClear' => true,
-        ],
-    ]); ?>
-
-    <!-- <=?= $form->field($model, 'status')->textInput() ?> -->
+    <!-- <#?= $form->field($model, 'status')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

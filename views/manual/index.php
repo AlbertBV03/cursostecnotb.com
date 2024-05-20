@@ -1,10 +1,11 @@
 <?php
 
-use app\models\Manual;
-use yii\helpers\Html;
 use yii\helpers\Url;
-use yii\grid\ActionColumn;
+use yii\helpers\Html;
+use app\models\Manual;
 use yii\grid\GridView;
+use yii\helpers\Markdown;
+use yii\grid\ActionColumn;
 
 /** @var yii\web\View $this */
 /** @var app\models\ManualSearch $searchModel */
@@ -19,6 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Manual', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Ver Catalogo', ['catalogo'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -30,10 +32,38 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'ID',
-            'nombre:ntext',
-            'descripcion:ntext',
-            'requisitos:ntext',
-            'objetivo:ntext',
+            //'nombre:ntext',
+            //'descripcion:ntext',
+            //'requisitos:ntext',
+            //'objetivo:ntext',
+            [
+                'attribute' => 'nombre',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->nombre);
+                },
+            ],
+            [
+                'attribute' => 'descripcion',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->descripcion);
+                },
+            ],
+            [
+                'attribute' => 'requisitos',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->requisitos);
+                },
+            ],
+            [
+                'attribute' => 'objetivo',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->objetivo);
+                },
+            ],
             [
                 'attribute' => 'imagen',
                 'format' => 'html',

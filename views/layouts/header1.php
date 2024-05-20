@@ -176,7 +176,7 @@ use webvimark\modules\UserManagement\models\User;
                       <div class="sub-menu">
                   <li
                    >
-                    <a class="sidenav-item-link" href="/manual/index">
+                    <a class="sidenav-item-link" href="/manual/catalogo">
                       <i class="mdi mdi-file-document-box"></i>
                       <span class="nav-text">Todos los manuales</span>
                     </a>
