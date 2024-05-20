@@ -189,7 +189,7 @@ use webvimark\modules\UserManagement\models\User;
                   </li>
                   <li
                    >
-                    <a class="sidenav-item-link" href="/manualdetalle/index">
+                    <a class="sidenav-item-link" href="/manualdetalle/catalogodetalle">
                       <i class="mdi mdi-book-open-variant"></i>
                       <span class="nav-text">Hojas de los manuales</span>
                     </a>

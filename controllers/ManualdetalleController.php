@@ -7,6 +7,8 @@ use app\models\ManualdetalleSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\ManualSearch;
+use Yii;
 
 /**
  * ManualdetalleController implements the CRUD actions for Manualdetalle model.
@@ -18,17 +20,18 @@ class ManualdetalleController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['catalogodetalle'], // Acción a la que se aplica esta regla
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'], // Solo usuarios autenticados
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -113,7 +116,7 @@ class ManualdetalleController extends Controller
     {
         $this->findModel($ID)->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['catalogodetalle']);
     }
 
     /**
@@ -131,4 +134,15 @@ class ManualdetalleController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    public function actionCatalogodetalle()
+{
+    $searchModel = new ManualdetalleSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+    return $this->render('catalogodetalle', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+    ]);
+}
 }

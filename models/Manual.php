@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Markdown;
 
 /**
  * This is the model class for table "manual".
@@ -88,5 +89,10 @@ class Manual extends \yii\db\ActiveRecord
     public function getManualdetalles()
     {
         return $this->hasMany(Manualdetalle::class, ['fk_manual' => 'ID']);
+    }
+    
+    public function getNombreMarkdown()
+    {
+        return Markdown::process($this->nombre);
     }
 }
