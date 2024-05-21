@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\Pjax;
 use app\models\Examen;
 use kartik\grid\GridView;
-use yii\bootstrap5\Modal;
+use yii\bootstrap4\Modal;
 use yii\grid\ActionColumn;
 /** @var yii\web\View $this */
 /** @var app\models\ExamenSearch $searchModel */

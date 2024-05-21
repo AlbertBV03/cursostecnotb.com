@@ -2000,7 +2000,7 @@ pre code {
   border: 0;
 }
 
-.form-control {
+/* .form-control {
   display: block;
   width: 100%;
   height: calc(1.5em + 1.12rem + 2px);
@@ -2014,8 +2014,8 @@ pre code {
   border: 1px solid #e5e9f2;
   border-radius: 0.25rem;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-}
-@media (prefers-reduced-motion: reduce) {
+} */
+/* @media (prefers-reduced-motion: reduce) {
   .form-control {
     transition: none;
   }
@@ -2182,7 +2182,7 @@ textarea.form-control {
   margin-top: 0;
   margin-right: 0.3125rem;
   margin-left: 0;
-}
+} */
 
 .valid-feedback {
   display: none;

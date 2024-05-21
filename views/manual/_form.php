@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 use kartik\select2\Select2;
-use yii\widgets\ActiveForm;
 use kartik\editors\Summernote;
+use yii\bootstrap4\ActiveForm;
 
 /** @var yii\web\View $this */
 /** @var app\models\Manual $model */
@@ -26,20 +26,21 @@ use kartik\editors\Summernote;
         }
     </style>
 
-    <?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(); ?>
 
     <!-- <#?= $form->field($model, 'ID')->textInput() ?> -->
 
-    <div class="form-group field-manual-nombre">
+
         <?= $form->field($model, 'nombre')->widget(Summernote::class, [
             'useKrajeePresets' => true,
             // other widget settings
         ]); ?>
-    </div>
+    
 
     <div class="form-group field-manual-descripcion">
         <?= $form->field($model, 'descripcion')->widget(Summernote::class, [
             'useKrajeePresets' => true,
+            'class' => 'form-control kv-editor-container',
             // other widget settings
         ]); ?>
     </div>

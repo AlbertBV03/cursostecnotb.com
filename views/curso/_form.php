@@ -104,7 +104,8 @@ use yii\widgets\ActiveForm;
             )->widget(DatePicker::classname(), [
                 'options' => ['placeholder' => 'Ingrese fecha inicio ...'],
                 'pluginOptions' => [
-                    'autoclose' => true
+                    'autoclose' => true,
+                    'format'=> 'yyyy-mm-dd'
                 ]
             ]); ?>
         </div>
@@ -121,7 +122,8 @@ use yii\widgets\ActiveForm;
                 )->widget(DatePicker::classname(), [
                     'options' => ['placeholder' => 'Ingrese fecha cierre ...'],
                     'pluginOptions' => [
-                        'autoclose' => true
+                        'autoclose' => true,
+                    'format'=> 'yyyy-mm-dd'
                     ]
                 ]); ?>
         </div>

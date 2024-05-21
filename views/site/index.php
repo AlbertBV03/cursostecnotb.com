@@ -6,7 +6,7 @@ use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
-use yii\bootstrap5\Modal;
+use yii\bootstrap4\Modal;
 use webvimark\modules\UserManagement\models\User;
 
 /** @var yii\web\View $this */
