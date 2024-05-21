@@ -12,7 +12,7 @@ use kartik\editors\Summernote;
 /** @var app\models\Manual $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-
+<div class="container">
 <div class="manual-form">
 
     <style>
@@ -102,4 +102,5 @@ use kartik\editors\Summernote;
 
     <?php ActiveForm::end(); ?>
 
+</div>
 </div>
