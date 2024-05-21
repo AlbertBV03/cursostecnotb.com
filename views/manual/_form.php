@@ -1,8 +1,11 @@
 <?php
 
+use app\models\Curso;
 use yii\helpers\Html;
+use yii\web\JsExpression;
 use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
 use kartik\editors\Summernote;
 
 /** @var yii\web\View $this */
@@ -71,6 +74,17 @@ use kartik\editors\Summernote;
             'options' => ['placeholder' => 'Selecciona un estado ...'],
             'pluginOptions' => [
                 'allowClear' => true,
+            ],
+        ]); ?>
+    </div>
+
+    <div class="form-group field-manual-fk_curso">
+        <?= $form->field($model, 'fk_curso')->widget(Select2::classname(), [
+            'data' => ArrayHelper::map(Curso::find()->all(), 'ID', 'nombre'),
+            'options' => ['placeholder' => 'Selecciona Curso ...'],
+            'pluginOptions' => [
+                'allowClear' => true,
+                'escapeMarkup' => new JsExpression('function(markup) { return markup; }'),
             ],
         ]); ?>
     </div>

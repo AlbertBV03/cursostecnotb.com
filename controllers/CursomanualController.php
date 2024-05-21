@@ -2,11 +2,15 @@
 
 namespace app\controllers;
 
-use app\models\Cursomanual;
-use app\models\CursomanualSearch;
+use Yii;
+use app\models\Curso;
+use app\models\Manual;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\Cursomanual;
 use yii\filters\VerbFilter;
+use app\models\CursomanualSearch;
+use app\models\search\CursoSearch;
+use yii\web\NotFoundHttpException;
 
 /**
  * CursomanualController implements the CRUD actions for Cursomanual model.
@@ -18,17 +22,18 @@ class CursomanualController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['catalogocursos'], // Acción a la que se aplica esta regla
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'], // Solo usuarios autenticados
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -130,5 +135,30 @@ class CursomanualController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionCatalogocursos()
+    {
+        $searchModel = new CursoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('catalogocursos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionManuales($ID)
+    {
+        $curso = Curso::findOne($ID);
+        $manuales = Manual::find()->where(['fk_curso' => $curso->$ID])->all;
+
+        if ($curso === null) {
+            throw new NotFoundHttpException('El curso no existe.');
+        }
+
+        //$manuales = $curso->manuales; // Usar la relación definida en el modelo Curso
+
+        return $this->render('manuales', ['curso' => $curso, 'manuales' => $manuales]);
     }
 }

@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Curso;
 use app\models\Manual;
 use yii\web\Controller;
 use yii\web\UploadedFile;
@@ -11,7 +10,6 @@ use yii\filters\VerbFilter;
 use app\models\ManualSearch;
 use app\models\Manualdetalle;
 use yii\filters\AccessControl;
-use app\models\search\CursoSearch;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -23,26 +21,20 @@ class ManualController extends Controller
      * @inheritDoc
      */
     public function behaviors()
-    {
-        return [
-            'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'only' => ['catalogo', 'catalogocursos'], // Acciones a las que se aplica esta regla
-                'rules' => [
-                    [
-                        'allow' => true,
-                        'actions' => ['catalogo'], // Acción catalogo
-                        'roles' => ['@'], // Solo usuarios autenticados
-                    ],
-                    [
-                        'allow' => true,
-                        'actions' => ['catalogocursos'], // Acción catalogocursos
-                        'roles' => ['@'], // Solo usuarios autenticados
-                    ],
+{
+    return [
+        'access' => [
+            'class' => AccessControl::className(),
+            'only' => ['catalogo'], // Acción a la que se aplica esta regla
+            'rules' => [
+                [
+                    'allow' => true,
+                    'roles' => ['@'], // Solo usuarios autenticados
                 ],
             ],
-        ];
-    }
+        ],
+    ];
+}
 
     /**
      * Lists all Manual models.
@@ -187,39 +179,13 @@ class ManualController extends Controller
     }
 
     public function actionCatalogo()
-    {
-        $searchModel = new ManualSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+{
+    $searchModel = new ManualSearch();
+    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('catalogo', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionCatalogocursos()
-    {
-        $searchModel = new CursoSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('catalogocursos', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    public function actionManuales($ID)
-    {
-        $curso = Curso::findOne($ID);
-        if ($curso === null) {
-            throw new \yii\web\NotFoundHttpException('El curso no existe.');
-        }
-
-        $manuales = Manual::find()->where(['fk_curso' => $ID])->all();
-
-        return $this->render('manuales', [
-            'curso' => $curso,
-            'manuales' => $manuales,
-        ]);
-    }
+    return $this->render('catalogo', [
+        'searchModel' => $searchModel,
+        'dataProvider' => $dataProvider,
+    ]);
+}
 }

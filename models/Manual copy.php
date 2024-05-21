@@ -3,9 +3,7 @@
 namespace app\models;
 
 use Yii;
-use app\models\Curso;
-use app\models\Manual;
-use app\models\Manualdetalle;
+use yii\helpers\Markdown;
 
 /**
  * This is the model class for table "manual".
@@ -15,11 +13,10 @@ use app\models\Manualdetalle;
  * @property string|null $descripcion
  * @property string|null $requisitos
  * @property string|null $objetivo
- * @property string|null $imagen
+ * @property resource|null $imagen
  * @property int|null $status
- * @property int $fk_curso
  *
- * @property Curso $fkCurso
+ * @property Cursomanual[] $cursomanuals
  * @property Manualdetalle[] $manualdetalles
  */
 class Manual extends \yii\db\ActiveRecord
@@ -38,11 +35,11 @@ class Manual extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['ID', 'status'], 'integer'],
             [['nombre', 'descripcion', 'requisitos', 'objetivo'], 'string'],
-            [['status', 'fk_curso'], 'integer'],
-            [['fk_curso'], 'required'],
-            [['imagen'], 'string', 'max' => 255],
-            [['fk_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::class, 'targetAttribute' => ['fk_curso' => 'ID']],
+            [['imagen'], 'string', 'max' => 200],
+            [['imagen'], 'file', 'extensions' => 'jpeg, jpg, png'],
+            [['ID'], 'unique'],
         ];
     }
 
@@ -59,18 +56,29 @@ class Manual extends \yii\db\ActiveRecord
             'objetivo' => 'Objetivo',
             'imagen' => 'Imagen',
             'status' => 'Status',
-            'fk_curso' => 'Fk Curso',
         ];
     }
 
+    public function uploadImage()
+    {
+        if ($this->validate()) {
+            $path = 'web/images/fotos' . $this->imagen->baseName . '.' . $this->imagen->extension;
+            $this->imagen->saveAs($path);
+            $this->imagen = $path;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
-     * Gets query for [[FkCurso]].
+     * Gets query for [[Cursomanuals]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getFkCurso()
+    public function getCursomanuals()
     {
-        return $this->hasOne(Curso::class, ['ID' => 'fk_curso']);
+        return $this->hasMany(Cursomanual::class, ['fk_manual' => 'ID']);
     }
 
     /**
@@ -82,11 +90,9 @@ class Manual extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Manualdetalle::class, ['fk_manual' => 'ID']);
     }
-
-    public function getManuales()
-    {
-        return $this->hasMany(Manual::class, ['ID' => 'fk_manual'])
-            ->viaTable('cursomanual', ['fk_curso' => 'ID']);
-    }
     
+    public function getNombreMarkdown()
+    {
+        return Markdown::process($this->nombre);
+    }
 }

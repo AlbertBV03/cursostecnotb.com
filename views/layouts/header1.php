@@ -182,7 +182,7 @@ use webvimark\modules\UserManagement\models\User;
                     </a>
                   </li>
                   <li>
-                    <a class="sidenav-item-link" href="/cursomanual/index">
+                    <a class="sidenav-item-link" href="/manual/catalogocursos">
                       <i class="mdi mdi-folder-account"></i>
                       <span class="nav-text">Curos con manuales</span>
                     </a>

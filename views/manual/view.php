@@ -26,7 +26,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a('Regresar al Catalogo', ['catalogo'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Regresar al Catalogo', ['catalogo'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Regresar al Catalogo cursos', ['catalogocursos'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
     <?= DetailView::widget([
@@ -76,6 +78,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     $statusText = $model->status == 1 ? 'Activo' : 'Inactivo';
                     return '<span class="badge ' . $colorClass . '">' . $statusText . '</span>';
                 },
+            ],
+            [
+                'attribute' => 'fk_curso',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return $model->fkCurso ? $model->fkCurso->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
+                },
+                'label' => 'Nombre del Curso perteneciente',
             ],
         ],
     ]) ?>
