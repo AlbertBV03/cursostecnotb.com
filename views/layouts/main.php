@@ -3,15 +3,14 @@
 /** @var yii\web\View $this */
 /** @var string $content */
 
-use app\assets\AppAsset;
 use app\widgets\Alert;
-use yii\bootstrap5\Breadcrumbs;
-use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
+use yii\helpers\Html;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
+use yii\bootstrap4\Breadcrumbs;
+use app\assets\AppAsset;
 
 AppAsset::register($this);
-
 $this->registerCsrfMetaTags();
 $this->registerMetaTag(['charset' => Yii::$app->charset], 'charset');
 $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, initial-scale=1']);
@@ -24,16 +23,14 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <html lang="<?= Yii::$app->language ?>" dir="ltr">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <head>
+<!--     <?php $this->registerCsrfMetaTags() ?> -->
     <title><?= Html::encode($this->title) ?></title>
+    <link href="/images/favicon.png" rel="shortcut icon" />
     <?php $this->head() ?>
-     <!-- FAVICON -->
-  <link href="/images/favicon.png" rel="shortcut icon" />
 </head>
 <body class="navbar-fixed sidebar-fixed" id="body">
-    
   <div id="toaster"></div>
-<?php $this->beginBody() ?>    
-    
+<?php $this->beginBody() ?>
 
     <!-- ====================================
     ——— WRAPPER
@@ -189,6 +186,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 
                       </div>
                     </div>
+
 <?php $this->endBody() ?>
 </body>
 </html>

@@ -38,6 +38,7 @@ class AppAsset extends AssetBundle
         '/js/nprogress.js',
         //'/js/jquery.min.js',
         '/js/bootstrap.bundle.min.js',
+        /* '/js/bootstrap.bundle.js', */
         '/js/simplebar.min.js',
         //'https://unpkg.com/hotkeys-js/dist/hotkeys.min.js',
         '/js/apexcharts.js',
@@ -62,6 +63,6 @@ class AppAsset extends AssetBundle
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap5\BootstrapAsset'
+        'yii\bootstrap4\BootstrapAsset'
     ];
 }
