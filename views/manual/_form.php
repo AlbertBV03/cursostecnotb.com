@@ -76,7 +76,7 @@ use kartik\editors\Summernote;
     <!-- <#?= $form->field($model, 'requisitos')->textarea(['rows' => 6]) ?> -->
     <!-- <#?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?> -->
     <!-- <#?= $form->field($model, 'imagen')->textInput() ?> -->
-    <!-- <#?= $form->field($model, 'status')->textInput() ?> -->
+    <!-- <#?= $form->field($model, 'status')->textInput( ) ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
