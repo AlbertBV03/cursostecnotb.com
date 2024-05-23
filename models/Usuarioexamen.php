@@ -12,7 +12,7 @@ use Yii;
  * @property int $fk_examen
  * @property int $fk_user
  *
- * @property Examan $fkExamen
+ * @property Examen $fkExamen
  * @property User $fkUser
  */
 class Usuarioexamen extends \yii\db\ActiveRecord
@@ -58,7 +58,7 @@ class Usuarioexamen extends \yii\db\ActiveRecord
      */
     public function getFkExamen()
     {
-        return $this->hasOne(Examan::class, ['ID' => 'fk_examen']);
+        return $this->hasOne(Examen::class, ['ID' => 'fk_examen']);
     }
 
     /**
