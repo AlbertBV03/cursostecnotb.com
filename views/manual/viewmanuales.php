@@ -12,6 +12,7 @@ $this->params['breadcrumbs'][] = ['label' => 'Manuals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
 <div class="container-fluid">
 <div class="manual-view">
 
@@ -32,7 +33,5 @@ $this->params['breadcrumbs'][] = $this->title;
     <div>
         <?= Html::img(Url::to('@web/' . $model->imagen), ['width' => '700']) ?>
     </div>
-
-
 </div>
 </div>

@@ -14,6 +14,8 @@ use yii\grid\ActionColumn;
 $this->title = 'Manuals';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="container-fluid">
 <div class="manual-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -90,6 +92,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ],
     ]); ?>
-
-
+</div>
 </div>

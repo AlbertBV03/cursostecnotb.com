@@ -11,6 +11,8 @@ $this->title = 'Manuales del Curso: ' . $curso->nombre;
 $this->params['breadcrumbs'][] = ['label' => 'Cursos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="container-fluid">
 <div class="curso-manuales">
     <h1><?= Markdown::process($this->title) ?></h1>
 
@@ -43,4 +45,6 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endforeach; ?>
     </div>
+
+</div>
 </div>
