@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Pregunta;
 
 /**
  * This is the model class for table "respuesta".
@@ -13,7 +14,7 @@ use Yii;
  * @property int $fk_pregunta
  * @property int $fk_user
  *
- * @property Preguntum $fkPregunta
+ * @property Pregunta $fkPreguntas
  * @property User $fkUser
  */
 class Respuesta extends \yii\db\ActiveRecord
@@ -61,7 +62,7 @@ class Respuesta extends \yii\db\ActiveRecord
      */
     public function getFkPregunta()
     {
-        return $this->hasOne(Preguntum::class, ['ID' => 'fk_pregunta']);
+        return $this->hasOne(Pregunta::class, ['ID' => 'fk_pregunta']);
     }
 
     /**

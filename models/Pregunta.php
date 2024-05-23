@@ -13,7 +13,7 @@ use Yii;
  * @property int $status
  * @property int $fk_examen
  *
- * @property Examan $fkExamen
+ * @property Examen $fkExamen
  * @property Respuesta[] $respuesta0
  */
 class Pregunta extends \yii\db\ActiveRecord
@@ -35,7 +35,7 @@ class Pregunta extends \yii\db\ActiveRecord
             [['contenido', 'respuesta', 'status', 'fk_examen'], 'required'],
             [['contenido', 'respuesta'], 'string'],
             [['status', 'fk_examen'], 'integer'],
-            [['fk_examen'], 'exist', 'skipOnError' => true, 'targetClass' => Examan::class, 'targetAttribute' => ['fk_examen' => 'ID']],
+            [['fk_examen'], 'exist', 'skipOnError' => true, 'targetClass' => Examen::class, 'targetAttribute' => ['fk_examen' => 'ID']],
         ];
     }
 
@@ -60,7 +60,7 @@ class Pregunta extends \yii\db\ActiveRecord
      */
     public function getFkExamen()
     {
-        return $this->hasOne(Examan::class, ['ID' => 'fk_examen']);
+        return $this->hasOne(Examen::class, ['ID' => 'fk_examen']);
     }
 
     /**
