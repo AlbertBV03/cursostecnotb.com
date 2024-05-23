@@ -14,7 +14,7 @@ use app\models\Pregunta;
  * @property int $fk_pregunta
  * @property int $fk_user
  *
- * @property Pregunta $fkPregunta
+ * @property Pregunta $fkPreguntas
  * @property User $fkUser
  */
 class Respuesta extends \yii\db\ActiveRecord
