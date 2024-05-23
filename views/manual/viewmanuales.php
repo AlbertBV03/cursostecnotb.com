@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Markdown::process($model->objetivo) ?>
     </div>
     <div>
-        <?= Html::img(Url::to('@web/' . $model->imagen)) ?>
+        <?= Html::img(Url::to('@web/' . $model->imagen), ['width' => '700']) ?>
     </div>
 
 

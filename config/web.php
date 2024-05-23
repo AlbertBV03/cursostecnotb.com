@@ -62,7 +62,9 @@ $config = [
             'rules' => [
                 'manualdetalle/catalogodetalle' => 'manualdetalle/catalogodetalle',
                 'cursomanual/manuales/<ID:\d+>' => 'cursomanual/manuales',
-                'manual/viewmanuales/<ID:\d+>' => 'manual/viewmanuales',
+                //'manual/viewmanuales/<ID:\d+>' => 'manual/viewmanuales',
+                'manualdetalle/view/<ID:\d+>' => 'manualdetalle/view',
+                'manualdetalle/viewhojas/<ID:\d+>' => 'manualdetalle/viewhojas',
 
             ],
         ],

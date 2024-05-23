@@ -12,36 +12,12 @@ use kartik\editors\Summernote;
 /** @var app\models\Manualdetalle $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-<div class="container">
+<div class="container-fluid">
 <div class="manualdetalle-form">
-    
-    <style>
-        .manualdetalle-form .form-group {
-            margin-bottom: 20px;
-        }
-        
-        /* Remover margenes y padding extras de Summernote */
-        .manualdetalle-form .field-manualdetalle-titulo,
-        .manualdetalle-form .field-manualdetalle-contenido {
-            margin-bottom: 350px;
-        }
-    </style>
 
     <?php $form = ActiveForm::begin(); ?>
 
     <!-- <#?= $form->field($model, 'ID')->textInput() ?> -->
-
-    <div class="form-group field-manualdetalle-fkmanual">
-    <?= $form->field($model, 'fk_manual')->widget(Select2::classname(), [
-    'data' => ArrayHelper::map(Manual::find()->all(), 'ID', 'nombreMarkdown'),
-    'options' => ['placeholder' => 'Selecciona Manual ...'],
-    'pluginOptions' => [
-        'escapeMarkup' => new JsExpression('function(markup) { return markup; }'),
-    ],
-    ]); ?>
-
-
-    </div>
 
     <!-- <#?= $form->field($model, 'fk_manual')->textInput() ?> -->
 
@@ -49,21 +25,33 @@ use kartik\editors\Summernote;
 
     <!-- <#?= $form->field($model, 'contenido')->textarea(['rows' => 6]) ?> -->
 
-    <div class="form-group field-manualdetalle-titulo">
+    <?= $form->field($model, 'fk_manual')->widget(Select2::classname(), [
+            'data' => ArrayHelper::map(Manual::find()->all(), 'ID', 'nombreMarkdown'),
+            'options' => [
+                'placeholder' => 'Selecciona Manual ...',
+                'value' => $model->fk_manual, // Pre-selecciona el valor si existe
+            ],
+            'disabled' => !$model->isNewRecord, // Deshabilitar si el registro no es nuevo
+            'pluginOptions' => [
+                'allowClear' => true, // Permite limpiar la selección
+                'escapeMarkup' => new JsExpression('function(markup) { return markup; }'),
+            ],
+    ]); ?>
+
     <?= $form->field($model, 'titulo')->widget(Summernote::class, [
             'useKrajeePresets' => true,
-            // other widget settings
+            'container' => [
+                'class' => 'kv-editor-container',
+                ],
         ]); ?>
-    </div>
 
-    <div class="form-group field-manualdetalle-contenido">
     <?= $form->field($model, 'contenido')->widget(Summernote::class, [
             'useKrajeePresets' => true,
-            // other widget settings
+            'container' => [
+                'class' => 'kv-editor-container',
+                ],
         ]); ?>
-    </div>
 
-    <div class="form-group field-manualdetalle-status">
     <?= $form->field($model, 'status')->widget(Select2::classname(), [
         'data' => [
             '1' => 'Activo',
@@ -74,7 +62,6 @@ use kartik\editors\Summernote;
             'allowClear' => true,
         ],
     ]); ?>
-    </div>
 
     <!-- <#?= $form->field($model, 'status')->textInput() ?> -->
 

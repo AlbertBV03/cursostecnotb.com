@@ -35,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         'method' => 'post',
                                     ],
                                 ]) ?>
+                                <?= Html::a('Ver Hojas', ['manualdetalle/hojasmanual', 'ID' => $manual->ID], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                             </div>
                         </div>
                     </div>
