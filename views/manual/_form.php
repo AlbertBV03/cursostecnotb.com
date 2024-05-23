@@ -60,16 +60,18 @@ use kartik\editors\Summernote;
             ],
         ]); ?>
 
-    <div class="form-group field-manual-fk_curso">
         <?= $form->field($model, 'fk_curso')->widget(Select2::classname(), [
-            'data' => ArrayHelper::map(Curso::find()->all(), 'ID', 'nombre'),
-            'options' => ['placeholder' => 'Selecciona Curso ...'],
-            'pluginOptions' => [
-                'allowClear' => true,
-                'escapeMarkup' => new JsExpression('function(markup) { return markup; }'),
-            ],
+                'data' => ArrayHelper::map(Curso::find()->all(), 'ID', 'nombre'),
+                'options' => [
+                    'placeholder' => 'Selecciona Curso ...',
+                    'value' => $model->fk_curso, // Pre-selecciona el valor si existe
+                ],
+                'disabled' => !$model->isNewRecord, // Deshabilitar si el registro no es nuevo
+                'pluginOptions' => [
+                    'allowClear' => true, // Permite limpiar la selección
+                    'escapeMarkup' => new JsExpression('function(markup) { return markup; }'),
+                ],
         ]); ?>
-    </div>
 
     <!-- <#?= $form->field($model, 'nombre')->textarea(['rows' => 6]) ?> -->
     <!-- <#?= $form->field($model, 'descripcion')->textarea(['rows' => 6]) ?> -->
