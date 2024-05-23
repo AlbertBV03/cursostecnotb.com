@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
+use yii\helpers\Markdown;
 
 /** @var yii\web\View $this */
 /** @var app\models\ManualdetalleSearch $searchModel */
@@ -19,6 +20,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Manualdetalle', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Ver Catalogo', ['catalogodetalle'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
@@ -33,13 +36,29 @@ $this->params['breadcrumbs'][] = $this->title;
             //'fk_manual',
             [
                 'attribute' => 'fk_manual',
+                'format' => 'raw',
                 'value' => function($model) {
                     return $model->fkManual ? $model->fkManual->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
                 },
                 'label' => 'Nombre del Manual',
             ],
-            'titulo:ntext',
-            'contenido:ntext',
+            
+            //'titulo:ntext',
+            //'contenido:ntext',
+            [
+                'attribute' => 'titulo',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->titulo);
+                },
+            ],
+            [
+                'attribute' => 'contenido',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->contenido);
+                },
+            ],
             [
                 'attribute' => 'status',
                 'format' => 'raw',

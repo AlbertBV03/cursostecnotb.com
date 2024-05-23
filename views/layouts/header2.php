@@ -299,8 +299,8 @@
                       </footer>
                     </div>
                   </li> -->
-                  <!-- User Account -->
-                  <li class="dropdown user-menu">
+                   <!-- User Account -->
+                   <li class="dropdown user-menu">
                     <button class="dropdown-toggle nav-link" data-toggle="dropdown">
                       <span class="d-none d-lg-inline-block"><?php echo(Yii::$app->user->identity->username);?></span>
                     </button>

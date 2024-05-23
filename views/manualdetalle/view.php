@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Markdown;
 use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
@@ -24,21 +25,37 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+        <?= Html::a('Regresar a Catalogo', ['catalogodetalle'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'ID',
+            //'ID',
             [
                 'attribute' => 'fk_manual',
+                'format' => 'raw',
                 'value' => function($model) {
                     return $model->fkManual ? $model->fkManual->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
                 },
                 'label' => 'Nombre del Manual',
             ],
-            'titulo:ntext',
-            'contenido:ntext',
+            //'titulo:ntext',
+            //'contenido:ntext',
+            [
+                'attribute' => 'titulo',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->titulo);
+                },
+            ],
+            [
+                'attribute' => 'contenido',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->contenido);
+                },
+            ],
             [
                 'attribute' => 'status',
                 'format' => 'raw',

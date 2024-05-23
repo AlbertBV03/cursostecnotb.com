@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'fk_manual',
             [
                 'attribute' => 'fk_manual',
+                'format' => 'raw',
                 'value' => function($model) {
                     return $model->fkManual ? $model->fkManual->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
                 },

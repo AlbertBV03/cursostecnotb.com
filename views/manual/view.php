@@ -3,6 +3,7 @@
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\Markdown;
 
 /** @var yii\web\View $this */
 /** @var app\models\Manual $model */
@@ -25,16 +26,43 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
+            <?= Html::a('Regresar al Catalogo', ['catalogo'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Regresar al Catalogo cursos', ['catalogocursos'], ['class' => 'btn btn-success']) ?>
+
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'ID',
-            'nombre:ntext',
-            'descripcion:ntext',
-            'requisitos:ntext',
-            'objetivo:ntext',
+            //'ID',
+            [
+                'attribute' => 'nombre',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->nombre);
+                },
+            ],
+            [
+                'attribute' => 'descripcion',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->descripcion);
+                },
+            ],
+            [
+                'attribute' => 'requisitos',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->requisitos);
+                },
+            ],
+            [
+                'attribute' => 'objetivo',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    return Markdown::process($model->objetivo);
+                },
+            ],
             [
                 'attribute' => 'imagen',
                 'format' => 'html',
@@ -42,7 +70,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return Html::img(Url::to('@web/' . $model->imagen), ['width' => '100']);
                 },
             ],
-            // 'imagen',
             [
                 'attribute' => 'status',
                 'format' => 'raw',
@@ -52,7 +79,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     return '<span class="badge ' . $colorClass . '">' . $statusText . '</span>';
                 },
             ],
-            //'status',
+            [
+                'attribute' => 'fk_curso',
+                'format' => 'raw',
+                'value' => function($model) {
+                    return $model->fkCurso ? $model->fkCurso->nombre : null; // Asume que la columna de nombre en Manual es 'nombre'
+                },
+                'label' => 'Nombre del Curso perteneciente',
+            ],
         ],
     ]) ?>
 

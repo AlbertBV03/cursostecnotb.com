@@ -202,20 +202,20 @@ use webvimark\modules\UserManagement\models\User;
                       <div class="sub-menu">
                   <li
                    >
-                    <a class="sidenav-item-link" href="/manual/index">
+                    <a class="sidenav-item-link" href="/manual/catalogo">
                       <i class="mdi mdi-file-document-box"></i>
                       <span class="nav-text">Todos los manuales</span>
                     </a>
                   </li>
                   <li>
-                    <a class="sidenav-item-link" href="/cursomanual/index">
+                    <a class="sidenav-item-link" href="/manual/catalogocursos">
                       <i class="mdi mdi-folder-account"></i>
                       <span class="nav-text">Curos con manuales</span>
                     </a>
                   </li>
                   <li
                    >
-                    <a class="sidenav-item-link" href="/manualdetalle/index">
+                    <a class="sidenav-item-link" href="/manualdetalle/catalogodetalle">
                       <i class="mdi mdi-book-open-variant"></i>
                       <span class="nav-text">Hojas de los manuales</span>
                     </a>

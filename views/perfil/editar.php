@@ -3,7 +3,7 @@
 use webvimark\modules\UserManagement\models\User;
 use webvimark\modules\UserManagement\UserManagementModule;
 use yii\helpers\Html;
-use yii\bootstrap5\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use kartik\select2\Select2;
 use kartik\date\DatePicker;
 use webvimark\extensions\BootstrapSwitch\BootstrapSwitch;

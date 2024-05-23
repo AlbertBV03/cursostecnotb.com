@@ -3,11 +3,15 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\Curso;
 use app\models\Manual;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
 use app\models\ManualSearch;
+use app\models\Manualdetalle;
+use yii\filters\AccessControl;
+use app\models\search\CursoSearch;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -20,17 +24,24 @@ class ManualController extends Controller
      */
     public function behaviors()
     {
-        return array_merge(
-            parent::behaviors(),
-            [
-                'verbs' => [
-                    'class' => VerbFilter::className(),
-                    'actions' => [
-                        'delete' => ['POST'],
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'only' => ['catalogo', 'catalogocursos'], // Acciones a las que se aplica esta regla
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['catalogo'], // Acción catalogo
+                        'roles' => ['@'], // Solo usuarios autenticados
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['catalogocursos'], // Acción catalogocursos
+                        'roles' => ['@'], // Solo usuarios autenticados
                     ],
                 ],
-            ]
-        );
+            ],
+        ];
     }
 
     /**
@@ -57,8 +68,10 @@ class ManualController extends Controller
      */
     public function actionView($ID)
     {
+        $model = Manual::findOne($ID);
+
         return $this->render('view', [
-            'model' => $this->findModel($ID),
+            'model' => $model,
         ]);
     }
 
@@ -92,7 +105,7 @@ class ManualController extends Controller
             }
             
             $model->save(false);
-            return $this->redirect(['index']);
+            return $this->redirect(['catalogo']);
         }
 
         return $this->render('create', [
@@ -132,7 +145,7 @@ class ManualController extends Controller
             }
             
             $model->save(false);
-            return $this->redirect(['index']);
+            return $this->redirect(['catalogo']);
         }
         return $this->render('update', [
             'model' => $model,
@@ -147,11 +160,15 @@ class ManualController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionDelete($ID)
-    {
-        $this->findModel($ID)->delete();
+{
+    // Eliminar manualdetalles relacionados
+    Manualdetalle::deleteAll(['fk_manual' => $ID]);
 
-        return $this->redirect(['index']);
-    }
+    // Eliminar manual
+    $this->findModel($ID)->delete();
+
+    return $this->redirect(['catalogo']);
+}
 
     /**
      * Finds the Manual model based on its primary key value.
@@ -167,5 +184,42 @@ class ManualController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionCatalogo()
+    {
+        $searchModel = new ManualSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('catalogo', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionCatalogocursos()
+    {
+        $searchModel = new CursoSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('catalogocursos', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionManuales($ID)
+    {
+        $curso = Curso::findOne($ID);
+        if ($curso === null) {
+            throw new \yii\web\NotFoundHttpException('El curso no existe.');
+        }
+
+        $manuales = Manual::find()->where(['fk_curso' => $ID])->all();
+
+        return $this->render('manuales', [
+            'curso' => $curso,
+            'manuales' => $manuales,
+        ]);
     }
 }

@@ -3,6 +3,9 @@
 namespace app\models;
 
 use Yii;
+use app\models\Curso;
+use app\models\Manual;
+use app\models\Manualdetalle;
 
 /**
  * This is the model class for table "manual".
@@ -12,10 +15,11 @@ use Yii;
  * @property string|null $descripcion
  * @property string|null $requisitos
  * @property string|null $objetivo
- * @property resource|null $imagen
+ * @property string|null $imagen
  * @property int|null $status
+ * @property int $fk_curso
  *
- * @property Cursomanual[] $cursomanuals
+ * @property Curso $fkCurso
  * @property Manualdetalle[] $manualdetalles
  */
 class Manual extends \yii\db\ActiveRecord
@@ -34,11 +38,11 @@ class Manual extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ID', 'status'], 'integer'],
             [['nombre', 'descripcion', 'requisitos', 'objetivo'], 'string'],
-            [['imagen'], 'string', 'max' => 200],
-            [['imagen'], 'file', 'extensions' => 'jpeg, jpg, png'],
-            [['ID'], 'unique'],
+            [['status', 'fk_curso'], 'integer'],
+            [['fk_curso'], 'required'],
+            [['imagen'], 'string', 'max' => 255],
+            [['fk_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::class, 'targetAttribute' => ['fk_curso' => 'ID']],
         ];
     }
 
@@ -55,29 +59,18 @@ class Manual extends \yii\db\ActiveRecord
             'objetivo' => 'Objetivo',
             'imagen' => 'Imagen',
             'status' => 'Status',
+            'fk_curso' => 'Fk Curso',
         ];
     }
 
-    public function uploadImage()
-    {
-        if ($this->validate()) {
-            $path = 'web/images/fotos' . $this->imagen->baseName . '.' . $this->imagen->extension;
-            $this->imagen->saveAs($path);
-            $this->imagen = $path;
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     /**
-     * Gets query for [[Cursomanuals]].
+     * Gets query for [[FkCurso]].
      *
      * @return \yii\db\ActiveQuery
      */
-    public function getCursomanuals()
+    public function getFkCurso()
     {
-        return $this->hasMany(Cursomanual::class, ['fk_manual' => 'ID']);
+        return $this->hasOne(Curso::class, ['ID' => 'fk_curso']);
     }
 
     /**
@@ -89,4 +82,11 @@ class Manual extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Manualdetalle::class, ['fk_manual' => 'ID']);
     }
+
+    public function getManuales()
+    {
+        return $this->hasMany(Manual::class, ['ID' => 'fk_manual'])
+            ->viaTable('cursomanual', ['fk_curso' => 'ID']);
+    }
+    
 }

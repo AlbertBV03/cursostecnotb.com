@@ -17,7 +17,7 @@ class ManualSearch extends Manual
     public function rules()
     {
         return [
-            [['ID', 'status'], 'integer'],
+            [['ID', 'status', 'fk_curso'], 'integer'],
             [['nombre', 'descripcion', 'requisitos', 'objetivo', 'imagen'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class ManualSearch extends Manual
         $query->andFilterWhere([
             'ID' => $this->ID,
             'status' => $this->status,
+            'fk_curso' => $this->fk_curso,
         ]);
 
         $query->andFilterWhere(['like', 'nombre', $this->nombre])

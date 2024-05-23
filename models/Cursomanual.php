@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Manual;
 
 /**
  * This is the model class for table "cursomanual".
@@ -67,5 +68,11 @@ class Cursomanual extends \yii\db\ActiveRecord
     public function getFkManual()
     {
         return $this->hasOne(Manual::class, ['ID' => 'fk_manual']);
+    }
+
+    public function getManuales()
+    {
+        return $this->hasMany(Manual::class, ['ID' => 'fk_manual'])
+            ->viaTable('cursomanual', ['fk_curso' => 'ID']);
     }
 }

@@ -3,6 +3,7 @@
 use app\models\Curso;
 use yii\helpers\Html;
 use app\models\Manual;
+use yii\web\JsExpression;
 use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
@@ -25,14 +26,22 @@ use yii\helpers\ArrayHelper;
         ],
     ]); ?>
 
+    <?= $form->field($model, 'fk_manual')->widget(Select2::classname(), [
+    'data' => ArrayHelper::map(Manual::find()->all(), 'ID', 'nombreMarkdown'),
+    'options' => ['placeholder' => 'Selecciona Manual ...'],
+    'pluginOptions' => [
+        'escapeMarkup' => new JsExpression('function(markup) { return markup; }'),
+    ],
+    ]); ?>
+
     <!-- <#?= $form->field($model, 'fk_curso')->textInput() ?> -->
 
-    <?= $form->field($model, 'fk_manual')->widget(Select2::classname(), [
+    <!-- <#?= $form->field($model, 'fk_manual')->widget(Select2::classname(), [
         'data' => ArrayHelper::map(Manual::find()->all(), 'ID', 'nombre'),
         'options' => ['placeholder' => 'Selecciona Manual ...'],
         'pluginOptions' => [
         ],
-    ]); ?>
+    ]); ?> -->
 
     <!-- <#?= $form->field($model, 'fk_manual')->textInput() ?> -->
 
