@@ -119,17 +119,6 @@ class ExamenController extends Controller
         return $this->redirect(['index']);
     }
 
-    public function actionPreguntas($ID)
-    {
-        $examen = Examen::find()->where(['ID' => $ID])->one();
-        $model = Pregunta::find()->where(['fk_examen' => $ID])->all();
-
-        return $this->render('preguntas', [
-            'examen' => $examen,
-            'model' => $model,
-        ]);
-    }
-
     /**
      * Finds the Examen model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -144,5 +133,65 @@ class ExamenController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+    public function actionPreguntas($ID)
+    {
+        $examen = Examen::find()->where(['ID' => $ID])->one();
+        $model = Pregunta::find()->where(['fk_examen' => $ID])->all();
+
+        return $this->render('preguntas', [
+            'examen' => $examen,
+            'model' => $model,
+        ]);
+    }
+
+    public function actionVerpregunta($ID)
+    {
+        $model = Pregunta::find()->where(['ID' => $ID])->one();
+        $model->fk_examen = $examen;
+
+        return $this->renderAjax('verpregunta', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCrearpregunta($examen)
+    {
+        $model = new Pregunta();
+        $model->fk_examen = $examen;
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post()) && $model->save()) {
+                return $this->redirect(['preguntas', 'ID' => $examen]);
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->renderAjax('crearpregunta', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEditarpregunta($ID,$examen)
+    {
+        $model = Pregunta::findOne(['ID' => $ID]);
+
+        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
+            return $this->redirect(['preguntas', 'ID' => $examen]);
+        }
+
+        return $this->renderAjax('editarpregunta', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionEliminarpregunta($ID,$examen)
+    {
+        $model = Pregunta::findOne(['ID' => $ID]);
+        $model->delete();
+
+        return $this->redirect(['preguntas', 'ID' => $examen]);
     }
 }
