@@ -24,10 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 <img src="<?= Yii::$app->request->baseUrl . '/' . $manual->imagen ?>" class="card-img-top img-fluid" style="max-width: 200px; max-height: 200px;" alt="...">
                     <div class="card-body">
                         <h5 class="card-title"><?= Markdown::process($manual->nombre) ?></h5>
-                        <p class="card-text"><?= Markdown::process($manual->descripcion) ?></p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <?= Html::a('Ver', ['manual/view', 'ID' => $manual->ID], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
+                                <?= Html::a('Ver', ['manual/viewmanuales', 'ID' => $manual->ID], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                                 <?= Html::a('Editar', ['manual/update', 'ID' => $manual->ID], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                                 <?= Html::a('Eliminar', ['manual/delete', 'ID' => $manual->ID], [
                                     'class' => 'btn btn-sm btn-outline-secondary',
