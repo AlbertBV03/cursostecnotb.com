@@ -75,6 +75,16 @@ class ManualController extends Controller
         ]);
     }
 
+    public function actionViewmanuales($ID)
+    {
+        $model = $this->findModel($ID);
+
+        return $this->render('viewmanuales', [
+            'model' => $model,
+        ]);
+    }
+
+
     /**
      * Creates a new Manual model.
      * If creation is successful, the browser will be redirected to the 'view' page.
