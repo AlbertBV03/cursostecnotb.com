@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var app\models\search\CursoinscritoSearch $model */
-/** @var yii\widgets\ActiveForm $form */
+/* @var $this yii\web\View */
+/* @var $model app\models\search\CursoinscritoSearch */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="cursoinscrito-search">
@@ -30,6 +30,8 @@ use yii\widgets\ActiveForm;
     <?php // echo $form->field($model, 'updated_at') ?>
 
     <?php // echo $form->field($model, 'fkUser') ?>
+
+    <?php // echo $form->field($model, 'fk_telefono') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

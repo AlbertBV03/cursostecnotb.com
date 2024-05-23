@@ -12,43 +12,60 @@ use kartik\editors\Summernote;
 /** @var app\models\Manual $model */
 /** @var yii\widgets\ActiveForm $form */
 ?>
-<div class="container-fluid">
+<div class="container">
 <div class="manual-form">
+
+    <style>
+        .manual-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        /* Remover margenes y padding extras de Summernote */
+        .manual-form .field-manual-nombre,
+        .manual-form .field-manual-descripcion,
+        .manual-form .field-manual-requisitos,
+        .manual-form .field-manual-objetivo {
+            margin-bottom: 350px;
+        }
+    </style>
 
     <?php $form = ActiveForm::begin(); ?>
 
     <!-- <#?= $form->field($model, 'ID')->textInput() ?> -->
 
+    <div class="form-group field-manual-nombre">
         <?= $form->field($model, 'nombre')->widget(Summernote::class, [
             'useKrajeePresets' => true,
-            'container' => [
-                'class' => 'kv-editor-container',
-                ],
+            // other widget settings
         ]); ?>
+    </div>
 
+    <div class="form-group field-manual-descripcion">
         <?= $form->field($model, 'descripcion')->widget(Summernote::class, [
             'useKrajeePresets' => true,
-            'container' => [
-                'class' => 'kv-editor-container',
-                ],
+            // other widget settings
         ]); ?>
+    </div>
 
+    <div class="form-group field-manual-requisitos">
         <?= $form->field($model, 'requisitos')->widget(Summernote::class, [
             'useKrajeePresets' => true,
-            'container' => [
-                'class' => 'kv-editor-container',
-                ],
+            // other widget settings
         ]); ?>
+    </div>
 
+    <div class="form-group field-manual-objetivo">
         <?= $form->field($model, 'objetivo')->widget(Summernote::class, [
             'useKrajeePresets' => true,
-            'container' => [
-                'class' => 'kv-editor-container',
-                ],
+            // other widget settings
         ]); ?>
+    </div>
 
+    <div class="form-group field-manual-imagen">
         <?= $form->field($model, 'imagen')->fileInput(['class' => 'form-control', 'id' => 'formFile']) ?>
+    </div>
 
+    <div class="form-group field-manual-status">
         <?= $form->field($model, 'status')->widget(Select2::classname(), [
             'data' => [
                 '1' => 'Activo',
@@ -59,6 +76,7 @@ use kartik\editors\Summernote;
                 'allowClear' => true,
             ],
         ]); ?>
+    </div>
 
     <div class="form-group field-manual-fk_curso">
         <?= $form->field($model, 'fk_curso')->widget(Select2::classname(), [
@@ -76,7 +94,7 @@ use kartik\editors\Summernote;
     <!-- <#?= $form->field($model, 'requisitos')->textarea(['rows' => 6]) ?> -->
     <!-- <#?= $form->field($model, 'objetivo')->textarea(['rows' => 6]) ?> -->
     <!-- <#?= $form->field($model, 'imagen')->textInput() ?> -->
-    <!-- <#?= $form->field($model, 'status')->textInput( ) ?> -->
+    <!-- <#?= $form->field($model, 'status')->textInput() ?> -->
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

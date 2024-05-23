@@ -3,8 +3,8 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-/** @var yii\web\View $this */
-/** @var app\models\Cursoinscrito $model */
+/* @var $this yii\web\View */
+/* @var $model app\models\Cursoinscrito */
 
 $this->title = $model->ID;
 $this->params['breadcrumbs'][] = ['label' => 'Cursoinscritos', 'url' => ['index']];
@@ -16,8 +16,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
+        <?= Html::a('Update', ['update', 'id' => $model->ID], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'id' => $model->ID], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'created_at',
             'updated_at',
             'fkUser',
+            'fk_telefono',
         ],
     ]) ?>
 

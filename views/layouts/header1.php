@@ -33,7 +33,7 @@ use webvimark\modules\UserManagement\models\User;
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
                   <li>
-                    <a class="sidenav-item-link" href="/actividades/mis-actividades">
+                    <a class="sidenav-item-link" href="/cursoinscrito/mis-cursos">
                     <i class="mdi mdi-calendar-check"></i>
                       <span class="nav-text">Mis cursos</span>
                     </a>
@@ -49,7 +49,7 @@ use webvimark\modules\UserManagement\models\User;
                   </ul>
                   <li>
                   
-                    <li class="section-title">
+                    <!-- <li class="section-title">
                     Explorar
                   </li>
                     <li  class="has-sub" >
@@ -74,7 +74,7 @@ use webvimark\modules\UserManagement\models\User;
                     </a>
                     </li>
                   </div>
-                  </ul>
+                  </ul> -->
                   <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')): ?>
                     <!-- <li>
                     <a class="sidenav-item-link" href="/actividades/create">
@@ -87,27 +87,27 @@ use webvimark\modules\UserManagement\models\User;
                     Gestión de cursos
                   </li>
                     <li  class="has-sub" >
-                      <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#gestion"
-                        aria-expanded="false" aria-controls="gestion">
-                        <i class="mdi mdi-image-filter-none"></i>
-                        <span class="nav-text">Cursos</span> <b class="caret"></b>
-                      </a>
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#gestion"
+                      aria-expanded="false" aria-controls="gestion">
+                      <i class="mdi mdi-image-filter-none"></i>
+                      <span class="nav-text">Cursos</span> <b class="caret"></b>
+                    </a>
                     <ul  class="collapse"  id="gestion"
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
-                        <li>
-                        <a class="sidenav-item-link" href="/curso/index">
-                          <i class="mdi mdi-chart-line"></i>
-                          <span class="nav-text">Cursos</span>
-                        </a>
-                      </li>
-                        <li>
-                          <a class="sidenav-item-link" href="/site/listbitacoras">
-                            <i class="mdi mdi-chart-line"></i>
-                            <span class="nav-text">Proximamente</span>
-                          </a>
-                          </li>
-                      </div>
+                    <li>
+                    <a class="sidenav-item-link" href="/curso/index">
+                      <i class="mdi mdi-chart-line"></i>
+                      <span class="nav-text">Cursos</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a class="sidenav-item-link" href="/site/listbitacoras">
+                      <i class="mdi mdi-chart-line"></i>
+                      <span class="nav-text">Proximamente</span>
+                    </a>
+                    </li>
+                  </div>
                   </ul>
                   <!--li>
                     <a class="sidenav-item-link" href="/actividades/create">
@@ -122,7 +122,6 @@ use webvimark\modules\UserManagement\models\User;
                     </a>
                   </li-->
                   <?php endif;?>
-
                   <?php if(User::hasRole('superadmin') || User::hasRole('Administrador')): ?>
                     <li  class="has-sub" >
                       <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#examen"

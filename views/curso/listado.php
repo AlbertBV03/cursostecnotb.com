@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?= Html::a('Create Curso', ['create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('<i class="fa fa-hand-point-left"></i> Regresar', ['/curso/index'], ['class' => 'btn btn-light btn-sm']) ?>
+        <?= Html::a('<i class="fa fa-hand-point-left"></i> Regresar', ['/curso/index'], ['class' => 'btn btn-info btn-sm']) ?>
     </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>

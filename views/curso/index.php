@@ -22,11 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <p>
             <?php 
-            echo Html::button('<i class="fa fa-plus"></i> Crear Colección', 
+            echo Html::button('<i class="fa fa-plus"></i> Crear Curso', 
             ['value'=>Url::to(['/curso/create']),
                             'class' => 'btn btn-outline-primary btn-sm','id'=>'modalButton']) 
             ?>
-            <?= Html::a('Listado', ['listado'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Listado', ['listado'], ['class' => 'btn btn-success btn-sm']) ?>
         </p>
         <br>
         <?php
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Inicia el:',
                     'vAlign' => 'middle',
                     'content' => function ($model) {
-                        return Yii::$app->formatter->asDate($model->created_at, 'long');
+                        return Yii::$app->formatter->asDate($model->inicio, 'long');
                     }
                 ],
                 [
@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Concluye el:',
                     'vAlign' => 'middle',
                     'content' => function ($model) {
-                        return Yii::$app->formatter->asDate($model->updated_at, 'long');
+                        return Yii::$app->formatter->asDate($model->fin, 'long');
                     }
                 ],
                 [
@@ -104,7 +104,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'filterInputOptions' => ['placeholder' => 'Seleccione'], // allows multiple authors to be chosen */
                     'format' => 'raw'
                 ],
-                [
+                /* [
                     'class' => 'kartik\grid\ActionColumn',
                     'width' => '50px',
                     'template' => '{ver}',
@@ -112,6 +112,18 @@ $this->params['breadcrumbs'][] = $this->title;
                     'buttons' => [
                         'ver' => function ($url, $dataProvider) {
                             return Html::a('<i class="fas fa-eye"></i>', ['curso','ID'=>  $dataProvider->ID], ['class' => 'btn btn-outline-primary btn-sm']);
+                            
+                        },
+                    ],
+                ], */
+                [
+                    'class' => 'kartik\grid\ActionColumn',
+                    'width' => '50px',
+                    'template' => '{inscritos}',
+                    'header' => 'Inscritos',
+                    'buttons' => [
+                        'inscritos' => function ($url, $dataProvider) {
+                            return Html::a('<i class="fas fa-user-check"></i>', ['/cursoinscrito/curso-inscrito','ID'=>  $dataProvider->ID], ['class' => 'btn btn-outline-primary btn-sm']);
                             
                         },
                     ],
@@ -148,7 +160,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 ], */
             ]
         ?>
-        <?php Pjax::begin(); ?> 
         <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
@@ -175,9 +186,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'id'=>'pjax_tickets',
                 ]
             ],
-        'pjax' => true,
+        'pjax' => false,
         ]); ?>
-        <?php Pjax::end(); ?>
 
     </div>
 </div>

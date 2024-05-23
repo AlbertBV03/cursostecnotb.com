@@ -3,9 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-/** @var yii\web\View $this */
-/** @var app\models\Cursoinscrito $model */
-/** @var yii\widgets\ActiveForm $form */
+/* @var $this yii\web\View */
+/* @var $model app\models\Cursoinscrito */
+/* @var $form yii\widgets\ActiveForm */
 ?>
 
 <div class="cursoinscrito-form">
@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'updated_at')->textInput() ?>
 
     <?= $form->field($model, 'fkUser')->textInput() ?>
+
+    <?= $form->field($model, 'fk_telefono')->textInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

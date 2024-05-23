@@ -3,6 +3,8 @@
 namespace app\models;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "cursoinscrito".
@@ -15,9 +17,12 @@ use Yii;
  * @property int|null $created_at
  * @property int|null $updated_at
  * @property int|null $fkUser
+ * @property int $fk_telefono
  *
- * @property Curso $fkCurso
  * @property User $fkInscrito
+ * @property Curso $fkCurso
+ * @property User $fkUser0
+ * @property Datospersonales $fkTelefono
  */
 class Cursoinscrito extends \yii\db\ActiveRecord
 {
@@ -29,17 +34,36 @@ class Cursoinscrito extends \yii\db\ActiveRecord
         return 'cursoinscrito';
     }
 
+    public function behaviors(){
+        return[
+            [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'fkUser',
+                'updatedByAttribute' => 'fkUser',
+            ],
+            'timestamp' => [
+            'class' => 'yii\behaviors\TimestampBehavior',
+            'attributes' => [
+                ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+            ],
+        ],
+    ];
+    }
+    
     /**
      * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            [['fk_inscrito', 'fk_curso', 'status'], 'required'],
-            [['fk_inscrito', 'fk_curso', 'status', 'created_at', 'updated_at', 'fkUser'], 'integer'],
+            [['fk_inscrito', 'fk_curso', 'status', 'fk_telefono'], 'required'],
+            [['fk_inscrito', 'fk_curso', 'status', 'created_at', 'updated_at', 'fkUser', 'fk_telefono'], 'integer'],
             [['certificado'], 'string', 'max' => 255],
-            [['fk_inscrito'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fk_inscrito' => 'id']],
-            [['fk_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::class, 'targetAttribute' => ['fk_curso' => 'ID']],
+            [['fk_inscrito'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fk_inscrito' => 'id']],
+            [['fk_curso'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::className(), 'targetAttribute' => ['fk_curso' => 'ID']],
+            [['fkUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['fkUser' => 'id']],
+            [['fk_telefono'], 'exist', 'skipOnError' => true, 'targetClass' => Datospersonales::className(), 'targetAttribute' => ['fk_telefono' => 'ID']],
         ];
     }
 
@@ -57,17 +81,8 @@ class Cursoinscrito extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'fkUser' => 'Fk User',
+            'fk_telefono' => 'Fk Telefono',
         ];
-    }
-
-    /**
-     * Gets query for [[FkCurso]].
-     *
-     * @return \yii\db\ActiveQuery|\app\models\query\CursoQuery
-     */
-    public function getFkCurso()
-    {
-        return $this->hasOne(Curso::class, ['ID' => 'fk_curso']);
     }
 
     /**
@@ -77,7 +92,37 @@ class Cursoinscrito extends \yii\db\ActiveRecord
      */
     public function getFkInscrito()
     {
-        return $this->hasOne(User::class, ['id' => 'fk_inscrito']);
+        return $this->hasOne(User::className(), ['id' => 'fk_inscrito']);
+    }
+
+    /**
+     * Gets query for [[FkCurso]].
+     *
+     * @return \yii\db\ActiveQuery|\app\models\query\CursoQuery
+     */
+    public function getFkCurso()
+    {
+        return $this->hasOne(Curso::className(), ['ID' => 'fk_curso']);
+    }
+
+    /**
+     * Gets query for [[FkUser0]].
+     *
+     * @return \yii\db\ActiveQuery|\app\models\query\UserQuery
+     */
+    public function getFkUser0()
+    {
+        return $this->hasOne(User::className(), ['id' => 'fkUser']);
+    }
+
+    /**
+     * Gets query for [[FkTelefono]].
+     *
+     * @return \yii\db\ActiveQuery|\app\models\query\DatospersonalesQuery
+     */
+    public function getFkTelefono()
+    {
+        return $this->hasOne(Datospersonales::className(), ['ID' => 'fk_telefono']);
     }
 
     /**
@@ -87,5 +132,12 @@ class Cursoinscrito extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \app\models\query\CursoinscritoQuery(get_called_class());
+    }
+
+    /**
+     * @return image
+     */
+    public function getImageUrl(){
+        return Yii::getAlias('@web')."/uploads/portadacurso/".$this->fkCurso->portada;
     }
 }

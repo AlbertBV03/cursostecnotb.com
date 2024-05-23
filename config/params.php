@@ -8,5 +8,9 @@ return [
     'bsVersion'                     => '4.x', //clave para abrir kartik boostrap 5
     //'bsDependencyEnabled' => false, // this will not load Bootstrap CSS and JS for all Krajee extensions
     'uploadimgPath' => '/img/',
-    'pendientes' => '1',
+    'pendiente' => '1',
+    'enCurso' => '2',
+    'cancelado' => '3',
+    'finalizado' => '4',
+    'acreditado' => '5',
 ];

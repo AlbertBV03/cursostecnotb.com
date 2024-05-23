@@ -17,7 +17,7 @@ class CursoinscritoSearch extends Cursoinscrito
     public function rules()
     {
         return [
-            [['ID', 'fk_inscrito', 'fk_curso', 'status', 'created_at', 'updated_at', 'fkUser', 'fk_telefono'], 'integer'],
+            [['ID', 'fk_inscrito', 'fk_curso', 'status', 'created_at', 'updated_at', 'fkUser'], 'integer'],
             [['certificado'], 'safe'],
         ];
     }
@@ -65,7 +65,6 @@ class CursoinscritoSearch extends Cursoinscrito
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'fkUser' => $this->fkUser,
-            'fk_telefono' => $this->fk_telefono,
         ]);
 
         $query->andFilterWhere(['like', 'certificado', $this->certificado]);
@@ -98,8 +97,8 @@ class CursoinscritoSearch extends Cursoinscrito
             return $dataProvider;
         }
 
-         // grid filtering conditions
-         $query->andFilterWhere([
+        // grid filtering conditions
+        $query->andFilterWhere([
             'ID' => $this->ID,
             'fk_inscrito' => $this->fk_inscrito,
             'fk_curso' => $this->fk_curso,
@@ -107,7 +106,6 @@ class CursoinscritoSearch extends Cursoinscrito
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'fkUser' => $this->fkUser,
-            'fk_telefono' => $this->fk_telefono,
         ]);
 
         $query->andFilterWhere(['like', 'certificado', $this->certificado]);

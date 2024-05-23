@@ -32,7 +32,7 @@ class AppAsset extends AssetBundle
         'https://cdn.quilljs.com/1.3.6/quill.snow.css',
         '/css/toastr.min.css',
         '/css/style.css',
-        '/css/style2.css',
+        /* '/css/style2.css', */ //se quito para cambiar los estilos a bs 4
     ];
     public $js = [
         '/js/nprogress.js',
@@ -57,6 +57,7 @@ class AppAsset extends AssetBundle
         '/js/custom.js',
         '/js/Chart.bundle.js',
         '/js/utils.js',
+        '/js/funciones.js',
         /* 'https://canvasjs.com/assets/script/canvasjs.min.js',
         'https://cdn.plot.ly/plotly-latest.min.js', */
         //'js/jquery-1.12.4.min',
