@@ -20,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <h1><?= Html::encode($this->title) ?></h1>
 
         <p>
-            <?= Html::a('Regresar al Catalogo', ['manual/catalogocursos'], ['class' => 'btn btn-success']) ?>
+            <?= Html::a('Regresar al Catalogo', ['cursoinscrito/mis-cursos'], ['class' => 'btn btn-success']) ?>
         </p>
 
         <div class="row">

@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Markdown::process($this->title) ?></h1>
 
     <p>
-    <?= Html::a('Regresar al Catalogo', ['catalogocursos'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a('Regresar al Catalogo', ['cursoinscrito/mis-cursos'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="row">
@@ -29,7 +29,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         <h5 class="card-title"><?= Markdown::process($manual->nombre) ?></h5>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <?= Html::a('Ver', ['manual/viewmanuales', 'ID' => $manual->ID], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                                 <?= Html::a('Ver Hojas', ['manualdetalle/hojasmanual', 'ID' => $manual->ID], ['class' => 'btn btn-sm btn-outline-secondary']) ?>
                             </div>
                         </div>
