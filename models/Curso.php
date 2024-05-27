@@ -43,6 +43,7 @@ class Curso extends \yii\db\ActiveRecord
      * {@inheritdoc}
      */
     public $imageFile;
+    public $usuario;
 
     public static function tableName()
     {
@@ -72,7 +73,7 @@ class Curso extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['codigo', 'portada', 'nombre', 'detalle', 'costo', 'inicio', 'fin', 'fk_revisor', 'fk_tipo', 'fk_categoria', 'status'], 'required'],
+            [['codigo', 'portada', 'nombre', 'detalle', 'costo', 'inicio', 'fin', 'fk_tipo', 'fk_categoria', 'status'], 'required'],
             [['detalle'], 'string'],
             [['costo'], 'number'],
             [['inicio', 'fin'], 'safe'],
@@ -82,6 +83,7 @@ class Curso extends \yii\db\ActiveRecord
             [['imageFile'], 'safe'],
             [['imageFile'], 'file', 'extensions'=>'jpg, gif, png'],
             [['imageFile'], 'file', 'maxSize'=>'100000000'],
+            [['usuario'], 'validateUser'],
             [['fk_revisor'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fk_revisor' => 'id']],
             [['fkUser'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['fkUser' => 'id']],
             [['fk_tipo'], 'exist', 'skipOnError' => true, 'targetClass' => Cursotipo::class, 'targetAttribute' => ['fk_tipo' => 'ID']],
@@ -115,6 +117,23 @@ class Curso extends \yii\db\ActiveRecord
             'updated_at' => 'Updated At',
             'fkUser' => 'Fk User',
         ];
+    }
+
+    /**
+     * Valida la correcta escritura del correo electrónico del solicitante y asigna datos del solicitante y el instituto al que pertenece
+     */
+    public function validateUser($attribute, $params)
+    {
+        $user = User::find()->select('id')->where(['username' => $this->usuario])->One();
+
+        if ($user == null) {
+            $this->addError($attribute, 'No se encontró la dirección proporcionada, verifique que el correo está registrado en el sistema.');
+        } else {
+            $this->fk_revisor = $user->id;
+            /* $userProfile = Userprofile::find()->select('IDUProfile')->where(['fkUser'=>$this->fkuser])->one();
+            $this->fk_instituto = $userProfile->IDUProfile; */
+            return true;
+        }
     }
 
     /**

@@ -93,7 +93,7 @@ class CursoinscritoController extends Controller
         $searchModelInscrito = new CursoinscritoSearch();
         $dataProviderInscrito = $searchModelInscrito->searchInscrito($ID, $this->request->queryParams);
         $searchModelUsers = new UserSearch();
-        $dataProviderUsers = $searchModelUsers->search($this->request->queryParams);
+        $dataProviderUsers = $searchModelUsers->searchEstudiante($this->request->queryParams);
         /* var_dump($inscritos);
         die; */
         $cursoID = $ID;
@@ -107,6 +107,28 @@ class CursoinscritoController extends Controller
             'dataProviderUsers' => $dataProviderUsers,
             'cursoID' => $cursoID,
             'curso' => $curso,
+        ]);
+    }
+
+    /**
+     * Displays all records from a single Curso model.
+     * @param int $ID ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionCursoTutorados($ID)
+    {
+        $curso = Curso::find()->where(['ID' => $ID])->one();
+        /* $inscritos = Cursoinscrito::find()->where(['fk_curso' => $ID])->all(); */
+        $searchModelInscrito = new CursoinscritoSearch();
+        $dataProviderInscrito = $searchModelInscrito->searchInscrito($ID, $this->request->queryParams);
+        /* var_dump($inscritos);
+        die; */
+
+        return $this->render('cursotutorados', [
+            'curso' => $curso,
+            'searchModelInscrito' => $searchModelInscrito,
+            'dataProviderInscrito' => $dataProviderInscrito,
         ]);
     }
 

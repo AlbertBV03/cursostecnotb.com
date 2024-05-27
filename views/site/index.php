@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
                 <div class="actividades-index">
                     <div class="card-body">
-                        
+                        <img src="/img/inicio.jpg" class="img-fluid" width="50%">
                     </div>
                 </div>
             </div>

@@ -88,9 +88,5 @@ class Manual extends \yii\db\ActiveRecord
         return $this->hasMany(Manual::class, ['ID' => 'fk_manual'])
             ->viaTable('cursomanual', ['fk_curso' => 'ID']);
     }
-
-    public function getNombreMarkdown()
-    {
-        return $this->nombre;
-    }
+    
 }

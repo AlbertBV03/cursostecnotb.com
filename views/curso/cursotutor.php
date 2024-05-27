@@ -20,14 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <h1><?= Html::encode($this->title) ?></h1><br>
 
-        <p>
-            <?php 
-            echo Html::button('<i class="fa fa-plus"></i> Crear Curso', 
-            ['value'=>Url::to(['/curso/create']),
-                            'class' => 'btn btn-outline-primary btn-sm','id'=>'modalButton']) 
-            ?>
-            <?= Html::a('Listado', ['listado'], ['class' => 'btn btn-success btn-sm']) ?>
-        </p>
+      <!--   <p>
+            
+        </p> -->
         <br>
         <?php
                 Modal::begin([
@@ -125,12 +120,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'header' => 'Inscritos',
                     'buttons' => [
                         'inscritos' => function ($url, $dataProvider) {
-                            return Html::a('<i class="fas fa-user-check"></i>', ['/cursoinscrito/curso-inscrito','ID'=>  $dataProvider->ID], ['class' => 'btn btn-outline-primary btn-sm']);
+                            return Html::a('<i class="fas fa-user-check"></i>', ['/cursoinscrito/curso-tutorados','ID'=>  $dataProvider->ID], ['class' => 'btn btn-outline-primary btn-sm']);
                             
                         },
                     ],
                 ],
-                [
+                /* [
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{actualizar}',
                     'header' => 'Modificar',
@@ -142,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]);
                         },
                     ],
-                ],
+                ], */
                 /* [
                     'class' => 'kartik\grid\ActionColumn',
                     'width' => '50px',
@@ -176,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'headerRowOptions'=>['style'=>'font-size: .8em;background-color:#E6E6E6;color:#31708f'],
         'rowOptions' => ['style'=>'font-size: .9em;color:#000000;'],
         'panel' => [
-            'heading'=>'<h3 style="color:white;text-align:center">Cursos</h3>',
+            'heading'=>'<h3 style="color:white;text-align:center">Mis cursos a cargo</h3>',
             'type'=>'primary',
             //'footer'=>false,
             'before'=>false,

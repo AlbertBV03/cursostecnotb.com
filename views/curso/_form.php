@@ -1,9 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use app\models\Cursotipo;
 use kartik\file\FileInput;
 use kartik\date\DatePicker;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Cursocategoria;
+use kartik\typeahead\TypeaheadBasic;
 
 /** @var yii\web\View $this */
 /** @var app\models\Curso $model */
@@ -130,7 +134,7 @@ use yii\widgets\ActiveForm;
     </div>
     <div class="row">
         <div class="col-lg-6">
-            <?= $form->field($model, 'fk_revisor',
+            <?= $form->field($model, 'usuario',
              ['template' => '
              <label class="form-label mb-2 text-2"> Revisor</label>
                  {input}
@@ -139,7 +143,14 @@ use yii\widgets\ActiveForm;
              'class'=>'form-control',
              'placeholder'=>'Ingrese el revisor de este curso',
              ]] 
-            )->textInput(['maxlength' => true]) ?>
+             )->widget(TypeaheadBasic::classname(), [
+                 'data' => $tutores,
+                 'options' => ['placeholder' => 'Ingrese el revisor del curso',
+                 'value' => $model->isNewRecord ? '' : $model->fkRevisor->username,
+                 'autocomplete'=>'off'
+             ],
+                 'pluginOptions' => ['highlight'=>true],
+                 ])?>  
 
         </div>
         <div class="col-lg-6">
@@ -150,9 +161,11 @@ use yii\widgets\ActiveForm;
              {error}',
              'inputOptions' => [
              'class'=>'form-control',
-             'placeholder'=>'Ingrese el tipo de curso',
              ]] 
-            )->textInput(['maxlength' => true]) ?>
+             )->dropDownList(
+                ArrayHelper::map(Cursotipo::find()->all(),
+                'ID','nombre'),
+                ['prompt'=>'Seleccione un tipo']); ?>
 
         </div>
     </div>
@@ -165,9 +178,11 @@ use yii\widgets\ActiveForm;
              {error}',
              'inputOptions' => [
              'class'=>'form-control',
-             'placeholder'=>'Ingrese la categoría',
              ]] 
-            )->textInput(['maxlength' => true]) ?>
+             )->dropDownList(
+                ArrayHelper::map(Cursocategoria::find()->all(),
+                'ID','nombre'),
+                ['prompt'=>'Seleccione una Categoría']); ?>
 
         </div>
         <div class="col-lg-6">
@@ -179,6 +194,7 @@ use yii\widgets\ActiveForm;
              'inputOptions' => [
              'class'=>'form-control',
              'placeholder'=>'Ingrese el costo del curso',
+             'value' => 0,
              ]] 
             )->textInput(['maxlength' => true]) ?>
 
