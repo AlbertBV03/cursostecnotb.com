@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 /** @var yii\widgets\ActiveForm $form */
 ?>
 
+<div class="container-fluid">
 <div class="manual-search">
 
     <?php $form = ActiveForm::begin([
@@ -36,4 +37,5 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 
+</div>
 </div>

@@ -13,6 +13,8 @@ $this->params['breadcrumbs'][] = ['label' => 'Manuals', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
+
+<div class="container-fluid">
 <div class="manual-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -90,4 +92,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+</div>
 </div>

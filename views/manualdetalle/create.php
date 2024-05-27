@@ -9,6 +9,7 @@ $this->title = 'Create Manualdetalle';
 $this->params['breadcrumbs'][] = ['label' => 'Manualdetalles', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="container-fluid">
 <div class="manualdetalle-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -17,4 +18,5 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
     ]) ?>
 
+</div>
 </div>

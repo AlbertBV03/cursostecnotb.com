@@ -10,6 +10,8 @@ use yii\helpers\Url;
 $this->title = 'Catálogo de Cursos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<div class="container-fluid">
 <div class="curso-index">
     <h1><?= Html::encode($this->title) ?></h1>
     <div class="row">
@@ -29,4 +31,5 @@ $this->params['breadcrumbs'][] = $this->title;
             </div>
         <?php endforeach; ?>
     </div>
+</div>
 </div>

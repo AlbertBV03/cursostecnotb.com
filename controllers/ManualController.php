@@ -13,6 +13,7 @@ use app\models\Manualdetalle;
 use yii\filters\AccessControl;
 use app\models\search\CursoSearch;
 use yii\web\NotFoundHttpException;
+use app\models\ManualdetalleSearch;
 
 /**
  * ManualController implements the CRUD actions for Manual model.

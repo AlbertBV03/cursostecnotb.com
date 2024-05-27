@@ -199,7 +199,7 @@ use webvimark\modules\UserManagement\models\User;
                     <ul  class="collapse"  id="manual"
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
-                  <li
+                      <li
                    >
                     <a class="sidenav-item-link" href="/manual/catalogo">
                       <i class="mdi mdi-file-document-box"></i>

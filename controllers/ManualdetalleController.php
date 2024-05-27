@@ -23,10 +23,16 @@ class ManualdetalleController extends Controller
         return [
             'access' => [
                 'class' => \yii\filters\AccessControl::className(),
-                'only' => ['catalogodetalle'], // Acción a la que se aplica esta regla
+                'only' => ['catalogodetalle', 'hojasmanual'], // Acción a la que se aplica esta regla
                 'rules' => [
                     [
                         'allow' => true,
+                        'actions' => ['catalogodetalle'], // Acción catalogo
+                        'roles' => ['@'], // Solo usuarios autenticados
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['hojasmanual'], // Acción catalogocursos
                         'roles' => ['@'], // Solo usuarios autenticados
                     ],
                 ],
@@ -58,8 +64,20 @@ class ManualdetalleController extends Controller
      */
     public function actionView($ID)
     {
+        $model = Manualdetalle::findOne($ID);
+
         return $this->render('view', [
-            'model' => $this->findModel($ID),
+            'model' => $model,
+        ]);
+    }
+
+    public function actionViewhojas($ID)
+    {
+        $model = $this->findModel($ID);
+
+        return $this->render('viewhojas', [
+            'model' => $model,
+            
         ]);
     }
 
@@ -136,13 +154,36 @@ class ManualdetalleController extends Controller
     }
 
     public function actionCatalogodetalle()
-{
-    $searchModel = new ManualdetalleSearch();
-    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    {
+        $searchModel = new ManualdetalleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-    return $this->render('catalogodetalle', [
-        'searchModel' => $searchModel,
-        'dataProvider' => $dataProvider,
-    ]);
-}
+        return $this->render('catalogodetalle', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionHojasmanual($ID)
+    {
+        $searchModel = new ManualdetalleSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->query->andWhere(['fk_manual' => $ID]); // Agrega esta línea para filtrar por fk_manual
+
+        return $this->render('hojasmanual', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionManuales($ID)
+    {
+
+        $manuales = Manual::find()->where(['fk_curso' => $ID])->all();
+
+        return $this->render('manuales', [
+            'curso' => $curso,
+            'manuales' => $manuales,
+        ]);
+    }
 }

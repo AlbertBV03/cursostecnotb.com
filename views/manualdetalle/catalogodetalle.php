@@ -13,6 +13,7 @@ use yii\helpers\Url;
 $this->title = 'Manualdetalles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<div class="container-fluid">
 <div class="manualdetalle-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -31,7 +32,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="card-body">
                         <h5 class="card-title"><?= Markdown::process($model->fkManual->nombre) ?></h5>
                         <p class="card-text"><?= Markdown::process($model->titulo) ?></p>
-                        <p class="card-text"><?= Markdown::process($model->contenido) ?></p>
                         <?= Html::a('Ver', ['view', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
                         <?= Html::a('Actualizar', ['update', 'ID' => $model->ID], ['class' => 'btn btn-secondary']) ?>
                         <?= Html::a('Eliminar', ['delete', 'ID' => $model->ID], [
@@ -47,4 +47,5 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php endforeach; ?>
     </div>
 
+</div>
 </div>
