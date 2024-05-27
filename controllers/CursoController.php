@@ -7,8 +7,10 @@ use app\models\Curso;
 use yii\web\Controller;
 use yii\web\UploadedFile;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use app\models\search\CursoSearch;
 use yii\web\NotFoundHttpException;
+use webvimark\modules\UserManagement\models\User;
 
 /**
  * CursoController implements the CRUD actions for Curso model.
@@ -66,6 +68,42 @@ class CursoController extends Controller
     }
 
     /**
+     * Lists all Curso models.
+     *
+     * @return string
+     */
+    public function actionCursoTutor()
+    {
+        $ID = Yii::$app->user->getId();
+        $searchModel = new CursoSearch();
+        $dataProvider = $searchModel->searchTutorado($ID, $this->request->queryParams);
+
+        return $this->render('cursotutor', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays a single Curso model.
+     * @param int $ID ID
+     * @return string
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionVerCurso($ID)
+    {
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('vercurso', [
+                'model' => $this->findModel($ID),
+            ]);
+        } else {
+            return $this->render('vercurso', [
+                'model' => $this->findModel($ID),
+            ]);
+        }
+    }
+
+    /**
      * Displays a single Curso model.
      * @param int $ID ID
      * @return string
@@ -73,9 +111,15 @@ class CursoController extends Controller
      */
     public function actionView($ID)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($ID),
-        ]);
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('view', [
+                'model' => $this->findModel($ID),
+            ]);
+        } else {
+            return $this->render('view', [
+                'model' => $this->findModel($ID),
+            ]);
+        }
     }
 
     /**
@@ -87,6 +131,11 @@ class CursoController extends Controller
     {
         $model = new Curso();
         $estatus = ['1' => 'Capturado', '2' => 'Publicado', '3' => 'Archivado', '4' => 'Cancelado', '5' => 'Proceso' ];
+        $usuariosRoles = User::find()
+        ->join('JOIN', 'auth_assignment', 'auth_assignment.user_id = user.id')
+        ->where(['auth_assignment.item_name' => Yii::$app->params['tutor']])
+        ->all();
+        $tutores = ArrayHelper::map($usuariosRoles, 'id', 'username');
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
@@ -116,11 +165,13 @@ class CursoController extends Controller
             return $this->renderAjax('create', [
                 'model' => $model,
                 'estatus' => $estatus,
+                'tutores' => $tutores,
             ]);
         } else {
             return $this->render('create', [
                 'model' => $model,
                 'estatus' => $estatus,
+                'tutores' => $tutores,
             ]);
         }
     }
@@ -136,6 +187,11 @@ class CursoController extends Controller
     {
         $model = $this->findModel($ID);
         $estatus = ['1' => 'Capturado', '2' => 'Publicado', '3' => 'Archivado', '4' => 'Cancelado', '5' => 'Proceso' ];
+        $usuariosRoles = User::find()
+        ->join('JOIN', 'auth_assignment', 'auth_assignment.user_id = user.id')
+        ->where(['auth_assignment.item_name' => Yii::$app->params['tutor']])
+        ->all();
+        $tutores = ArrayHelper::map($usuariosRoles, 'id', 'username');
 
         if ($this->request->isPost && $model->load($this->request->post())) {
             $imageFile = UploadedFile::getInstance($model, 'imageFile');
@@ -160,11 +216,13 @@ class CursoController extends Controller
             return $this->renderAjax('update', [
                 'model' => $model,
                 'estatus' => $estatus,
+                'tutores' => $tutores,
             ]);
         } else {
             return $this->render('update', [
                 'model' => $model,
                 'estatus' => $estatus,
+                'tutores' => $tutores,
             ]);
         }
     }

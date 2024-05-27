@@ -9,26 +9,67 @@ use yii\bootstrap4\Modal;
 use yii\grid\ActionColumn;
 
 /** @var yii\web\View $this */
-/** @var app\models\search\CursoSearch $searchModel */
-/** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var app\models\search\CursoSearch $searchModelInscrito */
+/** @var yii\data\ActivedataProviderInscrito $dataProviderInscrito */
 
-$this->title = 'Cursos';
+$this->title = 'Inscritos';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php
+
+
+//columnas del gridview para seleccionar es modal
+        $gridColumns = [
+                [
+                    'class'=>'yii\grid\SerialColumn',
+                    'header'=>'Num',
+                    'contentOptions'=>['style'=>'width:10px;vertical-align:middle;text-align:center;'],
+                ],
+                 'username'=>[
+                'attribute'=>'username',
+                'header'=>'Nombre de usuario',
+                 'value'=>'username',
+                 'vAlign'=>'middle',
+                'hAlign'=>'middle',
+                //'width'=>'10%'
+                ],
+                'email'=>[
+                'attribute'=>'email',
+                 'header'=>'Correo',
+                 'value'=>'email',
+                 'vAlign'=>'middle',
+                 'hAlign'=>'middle',
+                 //'width'=>'20%'
+                 ],
+
+            'status'=>[
+                'attribute'=>'status',
+                'header'=>'Estatus',
+                'value'=>'status',
+                'vAlign'=>'middle',
+                'hAlign'=>'middle',
+                //'width'=>'10%'
+                ],
+            ['class' => '\kartik\grid\ActionColumn',
+                    'template' => '{info}',
+                   'buttons' => [
+                        'info' => function ($url, $dataProviderUsers) {
+                         return Html::button('seleccionar', ['class'=>'btn btn-success btn-sm' , 'onclick'=>"asignacion('{$dataProviderUsers->id}')" ]);
+                        },      
+                    ],
+
+                ],
+        ];
+    ?>  
+    
 <div class="container-fluid">
     <div class="curso-index">
 
         <h1><?= Html::encode($this->title) ?></h1><br>
 
-        <p>
-            <?php 
-            echo Html::button('<i class="fa fa-plus"></i> Crear Curso', 
-            ['value'=>Url::to(['/curso/create']),
-                            'class' => 'btn btn-outline-primary btn-sm','id'=>'modalButton']) 
-            ?>
-            <?= Html::a('Listado', ['listado'], ['class' => 'btn btn-success btn-sm']) ?>
-        </p>
-        <br>
+       
+        
         <?php
                 Modal::begin([
                     'title' =>'<h4>Nuevo curso</h4>',
@@ -39,7 +80,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     echo "<div id='movi-modalContent'> </div>";
                 Modal::end();
             ?>
-        <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+            
+            <p>
+            <!-- <?= Html::a('Listado', ['listado'], ['class' => 'btn btn-success']) ?> -->
+            <?= Html::a('<i class="fa fa-hand-point-left"></i> Regresar', ['/curso/curso-tutor'], ['class' => 'btn btn-info btn-sm']) ?>
+            </p>
+        <?php // echo $this->render('_search', ['model' => $searchModelInscrito]); ?>
         <?php
 
             $gridColumns = [
@@ -50,34 +96,43 @@ $this->params['breadcrumbs'][] = $this->title;
                     'contentOptions'=>['style'=>'width:10px;vertical-align:middle;text-align:center;'],
                 ], */
                 [
-                    'attribute' => 'codigo',
-                    'header' => 'Coódigo:',
+                    'attribute' => 'fk_inscrito',
+                    'header' => 'Usuario inscrito:',
                     'vAlign' => 'middle',
                     'format'=>'raw',
+                    'value' => 'fkInscrito.username'
                 ],
                 [
-                    'attribute' => 'nombre',
+                    'attribute' => 'fk_telefono',
                     'header' => 'Nombre:',
                     'vAlign' => 'middle',
                     'format'=>'raw',
+                    'value' => 'fkTelefono.nombre'
+                ],
+                [
+                    'attribute' => 'fkUser',
+                    'header' => 'Asignó:',
+                    'vAlign' => 'middle',
+                    'format'=>'raw',
+                    'value' => 'fkUser0.username'
                 ],
                 [
                     'attribute' => 'inicio',
-                    'header' => 'Inicia el:',
+                    'header' => 'Asignado el:',
                     'vAlign' => 'middle',
                     'content' => function ($model) {
-                        return Yii::$app->formatter->asDate($model->inicio, 'long');
+                        return Yii::$app->formatter->asDate($model->created_at, 'long');
                     }
                 ],
-                [
+                /* [
                     'attribute' => 'fin',
                     'header' => 'Concluye el:',
                     'vAlign' => 'middle',
                     'content' => function ($model) {
                         return Yii::$app->formatter->asDate($model->fin, 'long');
                     }
-                ],
-                [
+                ], */
+                /* [
                     'attribute' => 'status',
                     'header' => 'Estatus',
                     'vAlign' => 'middle',
@@ -96,61 +151,68 @@ $this->params['breadcrumbs'][] = $this->title;
                         }
                     },
                     
-                    /* 'filterType' => GridView::FILTER_SELECT2,
-                    'filter' => ArrayHelper::map(Status::find()->all(),'IDStatus','nombre'), 
-                    'filterWidgetOptions' => [
-                        'pluginOptions' => ['allowClear' => true],
-                    ],
-                    'filterInputOptions' => ['placeholder' => 'Seleccione'], // allows multiple authors to be chosen */
+                    
                     'format' => 'raw'
-                ],
+                ], */
+                /* [
+                    'class' => 'kartik\grid\ActionColumn',
+                    'width' => '50px',
+                    'template' => '{ver}',
+                    'header' => 'Ver',
+                    'buttons' => [
+                        'ver' => function ($url, $dataProviderInscrito) {
+                            return Html::a('<i class="fas fa-eye"></i>', ['/user-management/user/view','id'=>  $dataProviderInscrito->fk_inscrito], ['class' => 'btn btn-outline-primary btn-sm']);
+                            
+                        },
+                    ],
+                ], */
                 [
                     'class' => 'kartik\grid\ActionColumn',
                     'width' => '50px',
                     'template' => '{ver}',
                     'header' => 'Ver',
                     'buttons' => [
-                        'ver' => function ($url, $dataProvider) {
+                        'ver' => function ($url, $dataProviderInscrito) {
                             return Html::button('<i class="fas fa-eye"></i>', 
-                            ['value'=>Url::to(['ver-curso','ID'=>  $dataProvider->ID]),
+                            ['value'=>Url::to(['/user-management/user/view','id'=>  $dataProviderInscrito->fk_inscrito]),
                             'class' => 'btn btn-outline-primary btn-sm custom_button'
                             ]);
                             },
                     ],
                 ],
-                [
+                /* [
                     'class' => 'kartik\grid\ActionColumn',
                     'width' => '50px',
                     'template' => '{inscritos}',
                     'header' => 'Inscritos',
                     'buttons' => [
-                        'inscritos' => function ($url, $dataProvider) {
-                            return Html::a('<i class="fas fa-user-check"></i>', ['/cursoinscrito/curso-inscrito','ID'=>  $dataProvider->ID], ['class' => 'btn btn-outline-primary btn-sm']);
+                        'inscritos' => function ($url, $dataProviderInscrito) {
+                            return Html::a('<i class="fas fa-user-check"></i>', ['/cursoinscrito/curso-inscrito','ID'=>  $dataProviderInscrito->ID], ['class' => 'btn btn-outline-primary btn-sm']);
                             
                         },
                     ],
-                ],
-                [
+                ], */
+                /* [
                     'class' => 'kartik\grid\ActionColumn',
                     'template' => '{actualizar}',
                     'header' => 'Modificar',
                     'buttons' => [
-                        'actualizar' => function ($url, $dataProvider) {
+                        'actualizar' => function ($url, $dataProviderInscrito) {
                         return Html::button('<i class="fa fa-fw fa-pen"></i></span>', 
-                        ['value'=>Url::to(['/curso/update','ID'=>  $dataProvider->ID]),
+                        ['value'=>Url::to(['/curso/update','ID'=>  $dataProviderInscrito->ID]),
                         'class' => 'btn btn-outline-primary btn-sm custom_button'
                         ]);
                         },
                     ],
-                ],
-                /* [
+                ], */
+               /*  [
                     'class' => 'kartik\grid\ActionColumn',
                     'width' => '50px',
                     'template' => '{borrar}',
                     'header' => 'Eliminar',
                     'buttons' => [
-                        'borrar' => function ($url, $dataProvider) {
-                            return Html::a('<i class="fa fa-fw fa-trash"></i>', ['delete', 'id' => $dataProvider->ID], [
+                        'borrar' => function ($url, $dataProviderInscrito) {
+                            return Html::a('<i class="fa fa-fw fa-trash"></i>', ['remover-asignado', 'ID' => $dataProviderInscrito->ID, 'IDCurso' => $dataProviderInscrito->fk_curso], [
                                 'class' => 'btn btn-outline-primary btn-sm',
                                 'data' => [
                                     'confirm' => Yii::t('app', 'Seguro de borrar este registro?'),
@@ -162,9 +224,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 ], */
             ]
         ?>
+        <br>
+        <br>
         <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $dataProviderInscrito,
+        'filterModel' => $searchModelInscrito,
         //'showPageSummary' => true,
         'columns' => $gridColumns,
         //'pjax' => true,
@@ -176,7 +240,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'headerRowOptions'=>['style'=>'font-size: .8em;background-color:#E6E6E6;color:#31708f'],
         'rowOptions' => ['style'=>'font-size: .9em;color:#000000;'],
         'panel' => [
-            'heading'=>'<h3 style="color:white;text-align:center">Cursos</h3>',
+            'heading'=>'<h3 style="color:white;text-align:center">Usuarios inscritos</h3>',
             'type'=>'primary',
             //'footer'=>false,
             'before'=>false,
@@ -185,10 +249,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'pjaxSettings' =>[
             'neverTimeout'=>true,
             'options'=>[
-                    'id'=>'pjax_tickets',
+                    'id'=>'pjax_cursos',
                 ]
             ],
-        'pjax' => false,
+        'pjax' => true,
         ]); ?>
 
     </div>

@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'id'=>'ventana', //.$id,
                         'title'=>'Seleccione un usuario',
                         'toggleButton' => [
-                            'label'=>'<i class="fa fa-plus"></i> Agregar Manual <br>', 'class'=>'btn btn-outline-success btn-sm',
+                            'label'=>'<i class="fa fa-plus"></i> Agregar usuario al curso <br>', 'class'=>'btn btn-outline-success btn-sm',
                             'disabled' =>false,
                             //'disabled' =>(Util::buscaCantidadEvaluadores($fksol)<3)? false:true,
                         ],
@@ -200,11 +200,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             return "En proceso";
                         }
                     },
-                    
-                    
                     'format' => 'raw'
                 ], */
-                [
+                /* [
                     'class' => 'kartik\grid\ActionColumn',
                     'width' => '50px',
                     'template' => '{ver}',
@@ -214,6 +212,20 @@ $this->params['breadcrumbs'][] = $this->title;
                             return Html::a('<i class="fas fa-eye"></i>', ['/user-management/user/view','id'=>  $dataProviderInscrito->fk_inscrito], ['class' => 'btn btn-outline-primary btn-sm']);
                             
                         },
+                    ],
+                ], */
+                [
+                    'class' => 'kartik\grid\ActionColumn',
+                    'width' => '50px',
+                    'template' => '{ver}',
+                    'header' => 'Ver',
+                    'buttons' => [
+                        'ver' => function ($url, $dataProviderInscrito) {
+                            return Html::button('<i class="fas fa-eye"></i>', 
+                            ['value'=>Url::to(['/user-management/user/view','id'=>  $dataProviderInscrito->fk_inscrito]),
+                            'class' => 'btn btn-outline-primary btn-sm custom_button'
+                            ]);
+                            },
                     ],
                 ],
                 /* [
@@ -283,12 +295,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 ],
         'summary'=>false,
         'pjaxSettings' =>[
-            'neverTimeout'=>true,
+            'neverTimeout'=>false,
             'options'=>[
                     'id'=>'pjax_cursos',
                 ]
             ],
-        'pjax' => true,
+        'pjax' => false,
         ]); ?>
 
     </div>

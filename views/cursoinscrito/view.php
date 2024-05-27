@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use webvimark\modules\UserManagement\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cursoinscrito */
@@ -14,6 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="cursoinscrito-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <?php if (User::hasRole('tutor') || User::hasRole('Administrador')): ?>
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->ID], ['class' => 'btn btn-primary']) ?>
@@ -25,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
-
+    <?php endif ; ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

@@ -23,6 +23,7 @@ use webvimark\modules\UserManagement\models\User;
                       <span class="nav-text">Inicio</span>
                     </a>
                   </li>
+                  <?php if(User::hasRole('superadmin') || User::hasRole('Estudiante')): ?>
                   <li  class="has-sub" >
                     <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#utilidades"
                       aria-expanded="false" aria-controls="utilidades">
@@ -38,61 +39,46 @@ use webvimark\modules\UserManagement\models\User;
                       <span class="nav-text">Mis cursos</span>
                     </a>
                   </li>
-                  <li>
-                    <a class="sidenav-item-link" href="/actividades/pendientes">
-                    <i class="mdi mdi-calendar-check"></i>
-                      <span class="nav-text">Mis diplomas</span>
-                    </a>
-                  </li>
                   </li>
                   </div>
                   </ul>
                   <li>
-                  
-                    <!-- <li class="section-title">
-                    Explorar
-                  </li>
-                    <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#informes"
-                      aria-expanded="false" aria-controls="informes">
-                      <i class="mdi mdi-image-filter-none"></i>
-                      <span class="nav-text">Cursos</span> <b class="caret"></b>
-                    </a>
-                    <ul  class="collapse"  id="informes"
-                      data-parent="#sidebar-menu">
-                      <div class="sub-menu">
-                    <li>
-                    <a class="sidenav-item-link" href="/site/listmes">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Más cursos</span>
-                    </a>
-                  </li>
+                  <?php endif;?>
+                  <?php if(User::hasRole('superadmin') || User::hasRole('tutor')): ?>
                   <li>
-                    <a class="sidenav-item-link" href="/site/listbitacoras">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Futuras convocatorias</span>
-                    </a>
-                    </li>
-                  </div>
-                  </ul> -->
-                  <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')): ?>
-                    <!-- <li>
-                    <a class="sidenav-item-link" href="/actividades/create">
-                      <i class="fa-solid fa-clipboard-list"></i>
-                      <span class="nav-text">Crear Actividad</span>
-                    </a>
-                  </li> -->
-                  <li>
-                    <li class="section-title">
-                    Gestión de cursos
+                  <li class="section-title">
+                    Cursos asignados
                   </li>
-                    <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#gestion"
+                  <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#cursorevisor"
                       aria-expanded="false" aria-controls="gestion">
                       <i class="mdi mdi-image-filter-none"></i>
                       <span class="nav-text">Cursos</span> <b class="caret"></b>
                     </a>
-                    <ul  class="collapse"  id="gestion"
+                    <ul  class="collapse"  id="cursorevisor"
+                      data-parent="#sidebar-menu">
+                      <div class="sub-menu">
+                    <li>
+                    <a class="sidenav-item-link" href="/curso/curso-tutor">
+                      <i class="mdi mdi-chart-line"></i>
+                      <span class="nav-text">Cursos tutorados</span>
+                    </a>
+                  </li>
+                  </div>
+                  </ul>
+                  <?php endif;?>
+                  <?php if(User::hasRole('superadmin') || User::hasRole('Administrador')): ?>
+                  <li>
+                  <li class="section-title">
+                    Gestión de cursos
+                  </li>
+                  <li  class="has-sub" >
+                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#curso"
+                      aria-expanded="false" aria-controls="gestion">
+                      <i class="mdi mdi-image-filter-none"></i>
+                      <span class="nav-text">Cursos</span> <b class="caret"></b>
+                    </a>
+                    <ul  class="collapse"  id="curso"
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
                     <li>
@@ -101,26 +87,8 @@ use webvimark\modules\UserManagement\models\User;
                       <span class="nav-text">Cursos</span>
                     </a>
                   </li>
-                  <li>
-                    <a class="sidenav-item-link" href="/site/listbitacoras">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Proximamente</span>
-                    </a>
-                    </li>
                   </div>
                   </ul>
-                  <!--li>
-                    <a class="sidenav-item-link" href="/actividades/create">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Crear actividad</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="sidenav-item-link" href="/bitacora/create">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Crear bitácora</span>
-                    </a>
-                  </li-->
                   <?php endif;?>
                   <?php if(User::hasRole('superadmin') || User::hasRole('Administrador')): ?>
                     <li  class="has-sub" >
@@ -138,55 +106,17 @@ use webvimark\modules\UserManagement\models\User;
                               <span class="nav-text">Examenes</span>
                             </a>
                           </li>
-                          <li>
+                          <!-- <li>
                             <a class="sidenav-item-link" href="/site/index">
                               <i class="mdi mdi-chart-line"></i>
                               <span class="nav-text">Proximamente</span>
                             </a>
-                          </li>
+                          </li> -->
                         </div>
                       </ul>
                     </li>
                   <?php endif;?>
-                  <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')): ?>
-                    <!--li class="section-title">
-                    Aplicaciones
-                    </li-->
-                    <li  class="has-sub" >
-                    <a class="sidenav-item-link" href="javascript:void(0)" data-toggle="collapse" data-target="#registros"
-                      aria-expanded="false" aria-controls="registros">
-                      <i class="mdi mdi-image-filter-none"></i>
-                      <span class="nav-text">Registros</span> <b class="caret"></b>
-                    </a>
-                    <ul  class="collapse"  id="registros"
-                      data-parent="#sidebar-menu">
-                      <div class="sub-menu">
-                  <li
-                   >
-                    <a class="sidenav-item-link" href="/actividades/index">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Todas las actividades</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a class="sidenav-item-link" href="/bitacora">
-                      <i class="mdi mdi-chart-line"></i>
-                      <span class="nav-text">Todas las bitácoras</span>
-                    </a>
-                  </li>
-                  <li
-                   >
-                    <a class="sidenav-item-link" href="/site/contactos">
-                      <i class="mdi mdi-phone"></i>
-                      <span class="nav-text">Usuarios</span>
-                    </a>
-                  </li>
-                  </div>
-                  </ul>
-                  </li>
-                  <?php endif;?>
-
-                  <?php if(User::hasRole('superadmin') || User::hasRole('Coordinador') || User::hasRole('Administrador')): ?>
+                  <?php if(User::hasRole('superadmin') || User::hasRole('Administrador')): ?>
                     <!--li class="section-title">
                     Aplicaciones
                     </li-->
@@ -199,7 +129,7 @@ use webvimark\modules\UserManagement\models\User;
                     <ul  class="collapse"  id="manual"
                       data-parent="#sidebar-menu">
                       <div class="sub-menu">
-                      <li
+                  <li
                    >
                     <a class="sidenav-item-link" href="/manual/catalogo">
                       <i class="mdi mdi-file-document-box"></i>
@@ -209,7 +139,7 @@ use webvimark\modules\UserManagement\models\User;
                   <li>
                     <a class="sidenav-item-link" href="/manual/catalogocursos">
                       <i class="mdi mdi-folder-account"></i>
-                      <span class="nav-text">Curos con manuales</span>
+                      <span class="nav-text">Cursos con manuales</span>
                     </a>
                   </li>
                   <li

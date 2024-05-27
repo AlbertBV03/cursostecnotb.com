@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use webvimark\modules\UserManagement\models\User;
 
 /** @var yii\web\View $this */
 /** @var app\models\Curso $model */
@@ -16,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
+    <?php if (User::hasRole('tutor') || User::hasRole('Administrador')): ?>
         <?= Html::a('Update', ['update', 'ID' => $model->ID], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'ID' => $model->ID], [
             'class' => 'btn btn-danger',
@@ -23,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]) ;
+        endif; ?>
     </p>
 
     <?= DetailView::widget([
